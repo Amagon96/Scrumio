@@ -11,10 +11,10 @@ const taskSchema = Schema({
         type        : Schema.Types.ObjectId,
         ref         : 'User'
     }],
-    sprint          :[{
+    sprint          :{
         type        : Schema.Types.ObjectId,
         ref         : 'Sprint'
-    }],
+    },
     title           : {
         type        : String,
         default     : 'Tarea Sin Titulo'
