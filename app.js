@@ -14,6 +14,7 @@ const configDB           = require('./config/database.js');
 const app = express();
 
 
+
 mongoose.connect(configDB.urlPro);
 const db = mongoose.connection;
 require('./config/passport')(passport);
@@ -70,6 +71,8 @@ require('./routes/users.js')(app, passport);
 require('./routes/abilities.js')(app, passport);
 require('./routes/projects.js')(app, passport);
 require('./routes/histories.js')(app, passport);
+require('./routes/sprints.js')(app, passport);
+require('./routes/tasks.js')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
