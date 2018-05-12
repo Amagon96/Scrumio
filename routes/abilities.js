@@ -1,24 +1,12 @@
 const abilitiesController = require('../controllers/abilitiesController');
+const securityMiddleware = require('../middlewares/securityMiddleware');
 
 module.exports = function(app, passport) {
 
-  app.post('/abilities', isLoggedIn, abilitiesController.create);
+  app.post('/abilities', securityMiddleware.isLoggedIn, abilitiesController.create);
 
-  app.delete('/abilities/:id', isLoggedIn, abilitiesController.remove);
+  app.delete('/abilities/:id', securityMiddleware.isLoggedIn, abilitiesController.remove);
 
-  app.put('/abilities/:id', isLoggedIn, abilitiesController.update);
+  app.put('/abilities/:id', securityMiddleware.isLoggedIn, abilitiesController.update);
 
-}
-
-function isLoggedIn(req, res, next) {
-
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated())
-      return next();
-
-  // if they aren't redirect them to the home page
-  res.render('index', {
-    title: "Home",
-    message: "Necesita logearse primero."
-  });
 }

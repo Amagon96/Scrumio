@@ -30,7 +30,8 @@ block content
         div.slide#slide1(data-anchor='slide1')
           div.titles.row
             div.col-md-4
-              i.fa.fa-long-arrow-left
+              a(href="/projects")
+                i.fa.fa-long-arrow-left
               span Ver Lista
             div.col-md-4.mt-3
               h4 Titulo del Proyecto
@@ -90,9 +91,15 @@ block content
                   img(src="images/baloom.png").img-fluid
                   p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
         div.slide#slide2(data-anchor='slide2')
-          h1 slide 2  
-        div.slide#slide3(data-anchor='slide3')
-          h1 slide 3
+          div.titles.row
+            div.col-md-4
+              i.fa.fa-long-arrow-left.go-back
+              span Volver a Proyecto
+            div.col-md-4.mt-3
+              h4 Configurar Release
+            div.col-md-4
+              button.btn Agregar Release
+          
     div#archivero.tab-pane.fade.container(class=archivero)
       div.d-flex.flex-row.mt-3
         div

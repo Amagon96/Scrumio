@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  main.container-fluid
+    h2 Listado de Proyectos
+    table.table
+      thead
+        tr
+          th(scope='col') Nombre
+          th(scope='col') Fecha de Inicio
+          th(scope='col') Fecha de Arranque
+          th(scope='col') Equipos
+          th(scope='col') 
+      tbody
+        each val in proyects
+          tr(id=val._id)
+            td.abilityName #{val.nombre}
+            td.abilityType #{val.date_request}
+            td.abilityType #{val.date_deployed}
+            td.abilityType #{equipos}
+            td 
+              button.btn VER
+block header
+  header.navbar.sticky-top.margin-sidemenu.d-flex
+    form.form-inline.mr-auto
+      <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+    div.mr-4
+      button.btn.btn-createProy.mr-3 Nuevo Proyecto
+      a(href="/profile")
+        img(src="images/leader.png").img-profile
+    div.d-inline-block.mr-4
+      a(href="/profile")
+        p #{userName}
+        p Perfil
+        
+block sidemenu
+  div.sidenav
+    img(src="images/logo.png")
+    div.menu.mt-5
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#home') Home
+        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#proyectos') Proyectos
+        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#archivero') Archivero
+        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#equipos') Equipos
+        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#miembros') Miembros
+      div.fixed-bottom.ml-5.mb-3
+        a(href="/logout").logout
+          img(src="images/logout.png").img-profile

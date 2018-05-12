@@ -1,21 +1,10 @@
 const usersController = require('../controllers/usersController');
+const securityMiddleware = require('../middlewares/securityMiddleware');
+
 module.exports = function(app, passport) {
 
-  app.get('/profile', isLoggedIn, usersController.index);
+  app.get('/profile', securityMiddleware.isLoggedIn, usersController.index);
 
-  app.put('/users/:id', isLoggedIn, usersController.update)
+  app.put('/users/:id', securityMiddleware.isLoggedIn, usersController.update)
 
-}
-
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.render('index', {
-      title: "Home",
-      message: "Necesita logearse primero."
-    });
 }

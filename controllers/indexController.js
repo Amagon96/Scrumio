@@ -1,5 +1,5 @@
 const express = require('express');
-const Member = require('../models/member');
+const Project = require('../models/project');
 const User = require('../models/user');
 const mongoose = require('mongoose');
 
@@ -11,12 +11,11 @@ function index(request, response, next) {
 }
 
 function dashboard(request, response, next) {
-    Member.find({"proyect_id": request.proyect_id})
-    response.render('dashboard', {
-      title: "Dashboard",
-      userName: request.user.local.name,
-      tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab
-    });
+  response.render('dashboard', {
+    title: "Dashboard",
+    userName: request.user.local.name,
+    tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab
+  });
 }
 
 function logout(request, response, next) {

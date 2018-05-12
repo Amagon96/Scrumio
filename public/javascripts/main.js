@@ -194,10 +194,12 @@ $(document).ready(() =>{
 
   $('#proyectos').fullpage({
         anchors:['firstPage', 'secondPage', 'thirdPage'],
+        paddingTop: '0px',
+        scrollOverflow: true,
         afterLoad: function(anchorLink, index){
           $("div.fp-controlArrow").hide();
-          $("i.fa-long-arrow-left").addClass("fp-controlArrow fp-prev");
           $("i.fa-long-arrow-right").addClass("fp-controlArrow fp-next");
+          $("i.fa-long-arrow-left.go-back").addClass("fp-controlArrow fp-prev");
         },
         onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex){
 
@@ -207,7 +209,7 @@ $(document).ready(() =>{
   $("#modalProyecto").click(function(){
     body = `<div id="modalAddAbility">
               <h4>Crear Nuevo Proyecto</h4>
-              <form method='POST' action='/proyects'>
+              <form method='POST' action='/projects'>
                 <div class="form-group">
                   <label>Nombre</label>
                   <input name="name" id="nameProyect" type="text" placeholder="Escribe el nombre de tu proyecto" class="form-control"/>

@@ -1,21 +1,20 @@
-const express       = require('express');
-const path          = require('path');
-const favicon       = require('serve-favicon');
-const logger        = require('morgan');
-const cookieParser  = require('cookie-parser');
-const bodyParser    = require('body-parser');
-const port          = process.env.PORT || 8080;
-const mongoose      = require('mongoose');
-const passport      = require('passport');
-const flash         = require('connect-flash');
-const session       = require('express-session');
-const MongoStore    = require('connect-mongo')(session);
-const configDB      = require('./config/database.js');
-const proyectos     = require('./routes/proyects');
+const express            = require('express');
+const path               = require('path');
+const favicon            = require('serve-favicon');
+const logger             = require('morgan');
+const cookieParser       = require('cookie-parser');
+const bodyParser         = require('body-parser');
+const port               = process.env.PORT || 8080;
+const mongoose           = require('mongoose');
+const passport           = require('passport');
+const flash              = require('connect-flash');
+const session            = require('express-session');
+const MongoStore         = require('connect-mongo')(session);
+const configDB           = require('./config/database.js');
+const app = express();
+
 const sprints     = require('./routes/sprints');
 const tasks     = require('./routes/tasks');
-
-const app = express();
 
 
 mongoose.connect(configDB.urlPro);
@@ -72,10 +71,11 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./routes/index.js')(app, passport);
 require('./routes/users.js')(app, passport);
 require('./routes/abilities.js')(app, passport);
-app.use('/proyects', proyectos);
+require('./routes/projects.js')(app, passport);
+require('./routes/histories.js')(app, passport);
+
 app.use('/sprints', sprints);
 app.use('/tasks', tasks);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
