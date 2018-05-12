@@ -1,28 +1,26 @@
 const sprintsController = require('../controllers/sprintsController');
 const tasksController = require('../controllers/tasksController');
+const securityMiddleware = require('../middlewares/securityMiddleware');
 
-const express = require('express');
-const router = express.Router();
+module.exports = function(app, passport) {
 
-router.get('/:id', sprintsController.findOne);
+app.get('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.findOne);
 
-router.get('/:page?', sprintsController.showAll);
+app.get('/sprints/:page?', securityMiddleware.isLoggedIn, sprintsController.showAll);
 
-router.post('/', sprintsController.create);
+app.post('/sprints/', securityMiddleware.isLoggedIn, sprintsController.create);
 
-router.put('/:id', sprintsController.update);
+app.put('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.update);
 
-router.delete('/:id', sprintsController.remove);
+app.delete('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.remove);
 
 
-router.get('/:id/tasks/', tasksController.showSprintTasks);
+app.get('/sprints/:id/tasks/', securityMiddleware.isLoggedIn, tasksController.showSprintTasks);
 
-router.get('/:id/tasks/:idTask', tasksController.findOne);
+app.get('/sprints/:id/tasks/:idTask', securityMiddleware.isLoggedIn, tasksController.findOne);
 
-router.post('/:id/tasks/', tasksController.create);
+app.post('/sprints/:id/tasks/', securityMiddleware.isLoggedIn, tasksController.create);
 
-router.delete('/:id/tasks/:idTask', tasksController.remove);
+app.delete('/sprints/:id/tasks/:idTask', securityMiddleware.isLoggedIn, tasksController.remove);
 
-module.exports = router;
-
-//app.use('/sprints/:idSprint/tasks', tasks);
+}

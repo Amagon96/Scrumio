@@ -88,8 +88,6 @@ function create(request, response, next){
 
     let paramsSprint = request.params.id;
 
-    var thisSprint = Sprint.find({_id :paramsSprint});
-
     if( ((isNaN(request.body.difficulty) === false) && (request.body.difficulty >= 1) && (request.body.difficulty <=5)) &&
         ((isNaN(request.body.hours)=== false) && (request.body.hours >= 1) && (request.body.hours <=8)) &&
         ((request.body.priority === 'Low') || (request.body.priority === 'Middle') || (request.body.priority === 'High')) ){

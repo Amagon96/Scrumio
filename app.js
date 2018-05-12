@@ -13,8 +13,6 @@ const MongoStore         = require('connect-mongo')(session);
 const configDB           = require('./config/database.js');
 const app = express();
 
-const sprints     = require('./routes/sprints');
-const tasks     = require('./routes/tasks');
 
 
 mongoose.connect(configDB.urlPro);
@@ -73,9 +71,8 @@ require('./routes/users.js')(app, passport);
 require('./routes/abilities.js')(app, passport);
 require('./routes/projects.js')(app, passport);
 require('./routes/histories.js')(app, passport);
-
-app.use('/sprints', sprints);
-app.use('/tasks', tasks);
+require('./routes/sprints.js')(app, passport);
+require('./routes/tasks.js')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
