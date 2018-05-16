@@ -4,43 +4,39 @@ block content
   div#overlay
   main.tab-content.container-fluid
     - var home = '', proyectos = '', archivero = '', equipos = '', mimebros = ''
-    case tabActive
-      when 'home'
-        - home = 'active show'
-        - break
-      when 'proyectos'
-        - proyectos = 'active show'
-        - break
-      when 'archivero'
-        - archivero = 'active show'
-        - break
-      when 'equipos'
-        - equipos = 'active show'
-        - break
-      when 'miembros'
-        - miembros = 'active show'
-        - break
-      default 
-        - home = 'active'
-    div#home.tab-pane.fade.show.container(class=home)
-      img(src="images/empty_state_proyect.png").img-fluid
-      p Parece que está algo vacio por aqui, por qué no empezamos creando un <a id="modalProyecto" href="#">proyecto</a>.
-    div#proyectos.tab-pane.fade.container(class=proyectos)
+      case tabActive
+        when 'proyectos'
+          - proyectos = 'active show'
+          - break
+        when 'archivero'
+          - archivero = 'active show'
+          - break
+        when 'equipos'
+          - equipos = 'active show'
+          - break
+        when 'miembros'
+          - miembros = 'active show'
+          - break
+        default 
+          - proyectos = 'active'
+    div#home.tab-pane.fade.container(class=home)
+      
+    div#proyectos.tab-pane.fade.show.container(class=proyectos)
       div#section0.section
         div.slide#slide1(data-anchor='slide1')
-          div.titles.row
+          div.titles.row.mt-2
             div.col-md-4
               a(href="/projects")
                 i.fa.fa-long-arrow-left
               span Ver Lista
-            div.col-md-4.mt-3
+            div.col-md-4
               h4 Titulo del Proyecto
             div.col-md-4
               button.btn Terminar Proyecto
           div.row.data
             div.col-md-4.mb-2
               div.wrapper.ml-5
-                img.img-thumbnail(src="images/osito.png")
+                img.img-thumbnail(src="../images/osito.png")
                 div.overlay <i class="fa fa-camera"></i> Subir Foto
             div.col-md-7.data-proyect
               div.row
@@ -69,16 +65,30 @@ block content
               h3 Product Backlog
               div.header
                 i.fa.fa-plus-square
-              div.backlog
+              div.backlog.pb-2
                 div.pt-5
-                  img(src="images/reader.png").img-fluid
+                  img(src="../images/reader.png").img-fluid
                   p Para comenzar a organizar tu proyecto, empecemos a crear las <a href="#" id="openSideModal">tareas</a>
+                  div.card.m-2
+                    div.pl-3
+                      h6.d-inline-block Narrativa de la Historia
+                      span.float-right.pl-3.pr-3
+                        strong STATUS
+                    div.pl-3
+                      p Soy una tarjeta muy simple.
+                    div.pl-3
+                      h6 Como
+                    div.pl-3
+                      p Soy buena mostrando pequeños trozos de información. Soy conveniente porque requiero pocas etiquetas para usarme efectivamente…
+                    div.pl-3
+                      a REVERSO DE TARJETA
+                      a VER DETALLE DE TAREA
             div.col-md-4
               h3 Release Backlog
               div.header
               div.backlog
                 div.pt-5
-                  img(src="images/reader.png").img-fluid
+                  img(src="../images/reader.png").img-fluid
                   p Una vez validadas tus tareas arrastralas a esta sección.
             div.col-md-4.config
               div.mt-4
@@ -88,14 +98,14 @@ block content
                 h4#teams Equipos
                 a(href="#") Agregar
                 div.pt-5
-                  img(src="images/baloom.png").img-fluid
+                  img(src="../images/baloom.png").img-fluid
                   p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
         div.slide#slide2(data-anchor='slide2')
-          div.titles.row
+          div.titles.row.mt-3
             div.col-md-4
               i.fa.fa-long-arrow-left.go-back
               span Volver a Proyecto
-            div.col-md-4.mt-3
+            div.col-md-4
               h4 Configurar Release
             div.col-md-4
               button.btn Agregar Release
@@ -105,7 +115,7 @@ block content
         div
           h2 Archivero de Proyectos
       div.mt-3.container-1
-        img(src="images/panzon.png")
+        img(src="../images/panzon.png")
         p Parece que no tienes ningún proyecto archivado, pero no te asustes. Una vez que terminas tus proyectos podrás verlos aqui.
     div#equipos.tab-pane.fade.container(class=equipos)
       div.d-flex.mt-3
@@ -114,7 +124,7 @@ block content
         div.ml-auto 
           button#addTeam.btn AGREGAR EQUIPO
       div.mt-3.container-1
-        img(src="images/snoppy.png").img-fluid
+        img(src="../images/snoppy.png").img-fluid
         p Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos <a href="#">aqui</a>.
     div#miembros.tab-pane.fade.container(class=miembros)
       div.d-flex.mt-3
@@ -123,7 +133,7 @@ block content
         div.ml-auto 
           button.btn AGREGAR MIEMBROS
       div.mt-3.container-1
-        img(src="images/abrazame.png").img-fluid
+        img(src="../images/abrazame.png").img-fluid
         p Oh no! Parece que aún no tienes miembros! Registra algunos <a href="#">aqui</a>.
         
 block header
@@ -131,9 +141,9 @@ block header
     form.form-inline.mr-auto
       <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
     div.mr-4
-      button.btn.btn-createProy.mr-3 Nuevo Proyecto
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
       a(href="/profile")
-        img(src="images/leader.png").img-profile
+        img(src="../images/leader.png").img-profile
     div.d-inline-block.mr-4
       a(href="/profile")
         p #{userName}
@@ -141,14 +151,11 @@ block header
       
 block sidemenu
   div.sidenav
-    img(src="images/logo.png")
+    img(src="../images/logo.png")
     div.menu.mt-5
       div.nav.nav-tabs(role='tablist')
-        - var home = '', proyectos = '', archivero = '', equipos = '', mimebros = ''
+        - var home = '', proyectos = '', archivero = '', equipos = '', miembros = ''
         case tabActive
-          when 'home'
-            - home = 'active'
-            - break
           when 'proyectos'
             - proyectos = 'active'
             - break
@@ -162,7 +169,7 @@ block sidemenu
             - miembros = 'active'
             - break
           default 
-            - home = 'active'
+            - proyectos = 'active'
         a.nav-item.nav-link(class=home data-toggle='tab', role='tab', aria-selected='true', href='#home') Home
         a.nav-item.nav-link(class=proyectos data-toggle='tab', role='tab', aria-selected='true', href='#proyectos') Proyectos
         a.nav-item.nav-link(class=archivero data-toggle='tab', role='tab', aria-selected='true', href='#archivero') Archivero
@@ -170,7 +177,7 @@ block sidemenu
         a.nav-item.nav-link(class=miembros data-toggle='tab', role='tab', aria-selected='true', href='#miembros') Miembros
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
-          img(src="images/logout.png").img-profile
+          img(src="../images/logout.png").img-profile
     
 block side-modal
   div#mySidenav.side-modal.pt-3
@@ -205,5 +212,5 @@ block side-modal
         label(for='then') Entonces
         input#then.form-control(type='text', placeholder='Escriba el Entonces de algo ')
       div.d-flex.justify-content-end
-        button#closeSideModal.pr-2 Cancelar
+        button#closeSideModal.pr-2(type="button") Cancelar
         button Agregar

@@ -16,7 +16,7 @@ function isLoggedIn(req, res, next) {
 var isLog = (req, res, next) => {
 
   if(req.isAuthenticated()){
-    res.redirect('dashboard');
+    res.redirect('home_projects');
   }else {
     return next();
   }

@@ -11,11 +11,28 @@ function index(request, response, next) {
 }
 
 function dashboard(request, response, next) {
+  // Project.find({"product_owner_id" : request.user._id}, (err, objs)=>{
+  //   if(err){
+  //     response.json({
+  //       err: true,
+  //       message: 'No se puedieron extraer los proyectos',
+  //       objs: err
+  //     });
+  //   }else{
+  //     response.render('dashboard', {
+  //       title: "Dashboard",
+  //       userName: request.user.local.name,
+  //       tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab,
+  //       projects: objs
+  //     });
+  //   }
+  // });
+
   response.render('dashboard', {
-    title: "Dashboard",
-    userName: request.user.local.name,
-    tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab
-  });
+        title: "Dashboard",
+        userName: request.user.local.name,
+        tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab,
+      });
 }
 
 function logout(request, response, next) {

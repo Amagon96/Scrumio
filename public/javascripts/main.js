@@ -206,7 +206,7 @@ $(document).ready(() =>{
         }
 	});
 
-  $("#modalProyecto").click(function(){
+  $(".modalProyecto").click(function(){
     body = `<div id="modalAddAbility">
               <h4>Crear Nuevo Proyecto</h4>
               <form method='POST' action='/projects'>
@@ -244,5 +244,18 @@ $(document).ready(() =>{
       closeButton: true
     });
   });
+
+  // $(".card-proyect").click(function(){
+  //   $.ajax({
+  //     url: "/projects/"+$(this).attr("data-id")
+  //   }).done(function(obj) {
+  //
+  //     })
+  //     .fail(function(err) {
+  //       $.toast("Error al cargar proyecto :/");
+  //     })
+  //     .always(function() {
+  //     });
+  // });
 
 });

@@ -1,25 +1,27 @@
 extends layout
 
 block content
-  main.container-fluid
-    h2 Listado de Proyectos
-    table.table
-      thead
-        tr
-          th(scope='col') Nombre
-          th(scope='col') Fecha de Inicio
-          th(scope='col') Fecha de Arranque
-          th(scope='col') Equipos
-          th(scope='col') 
-      tbody
-        each val in proyects
-          tr(id=val._id)
-            td.abilityName #{val.nombre}
-            td.abilityType #{val.date_request}
-            td.abilityType #{val.date_deployed}
-            td.abilityType #{equipos}
-            td 
-              button.btn VER
+  main.container-fluid#projects
+    div.row.ml-5.p-3
+      h2 Listado de Proyectos
+    div.container.mt-4
+      table.table
+        thead
+          tr
+            th(scope='col') Nombre
+            th(scope='col') Fecha de Inicio
+            th(scope='col') Fecha de Arranque
+            th(scope='col') Equipos
+            th(scope='col') 
+        tbody
+          each val in projects
+            tr(id=val._id)
+              td.abilityName #{val.nombre}
+              td.abilityType #{val.date_request}
+              td.abilityType #{val.date_deployed}
+              td.abilityType equipos
+              td 
+                button.btn VER
 block header
   header.navbar.sticky-top.margin-sidemenu.d-flex
     form.form-inline.mr-auto
@@ -30,7 +32,7 @@ block header
         img(src="images/leader.png").img-profile
     div.d-inline-block.mr-4
       a(href="/profile")
-        p #{userName}
+        p #{userName.name}
         p Perfil
         
 block sidemenu
@@ -38,11 +40,11 @@ block sidemenu
     img(src="images/logo.png")
     div.menu.mt-5
       div.nav.nav-tabs(role='tablist')
-        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#home') Home
-        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#proyectos') Proyectos
-        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#archivero') Archivero
-        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#equipos') Equipos
-        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#miembros') Miembros
+        a.nav-item.nav-link.send-active(href='/dashboardhome') Home
+        a.nav-item.nav-link.send-active(href='/dashboardproyectos') Proyectos
+        a.nav-item.nav-link.send-active(href='/dashboardarchivero') Archivero
+        a.nav-item.nav-link.send-active(href='/dashboardequipos') Equipos
+        a.nav-item.nav-link.send-active(href='/dashboardmiembros') Miembros
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
           img(src="images/logout.png").img-profile

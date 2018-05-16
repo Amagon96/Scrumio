@@ -54,12 +54,22 @@ footer {
 main {
   padding-left: 10% !important;
   /* Same as the width of the sidenav */
-  font-size: 28px;
-  /* Increased text to enable scrolling */
   padding: 0px 10px;
   text-align: center; }
   main #home a {
     color: #f57f17; }
+  main #home p {
+    font-size: 30px; }
+  main #home .card-proyect {
+    display: inline-block;
+    background: linear-gradient(to right, #ff8f00, #ffb300);
+    color: white;
+    margin: 10px;
+    min-height: 200px;
+    min-width: 300px;
+    border-radius: 5px;
+    max-width: 250px;
+    cursor: pointer; }
 
 .margin-sidemenu {
   margin-left: 150px;
@@ -152,18 +162,18 @@ main {
     font-size: 14px; }
   #profile .profesional table td {
     font-size: 14px; }
-    #profile .profesional table td button {
-      border-radius: 7px;
-      background-color: #ffffff;
-      border: solid 3px #f57f17;
-      font-size: 13px;
-      color: #f57f17;
-      padding-bottom: 0px;
-      padding-top: 0px; }
     #profile .profesional table td i {
       color: #f57f17;
       font-size: 25px;
       cursor: pointer; }
+  #profile .profesional table button {
+    border-radius: 7px;
+    background-color: #ffffff;
+    border: solid 3px #f57f17;
+    font-size: 13px;
+    color: #f57f17;
+    padding-bottom: 0px;
+    padding-top: 0px; }
 
 #profile .wrapper {
   position: relative;
@@ -346,7 +356,8 @@ main {
 #proyectos .titles i {
   color: #f57f17;
   position: initial;
-  border-color: transparent; }
+  border-color: transparent;
+  font-size: 30px; }
 
 #proyectos .titles span {
   font-size: 14px;
@@ -410,6 +421,28 @@ main {
     color: #4a4a4a;
     margin-bottom: 0px; }
 
+#projects h2 {
+  font-size: 30px;
+  font-weight: bold; }
+
+#projects .container {
+  border-radius: 10px;
+  background-color: #ffffff; }
+  #projects .container table thead th {
+    font-size: 14px;
+    font-weight: bold;
+    border: none; }
+  #projects .container table thead tbody tr td {
+    font-size: 14px !important; }
+  #projects .container table button {
+    border-radius: 7px;
+    background-color: #ffffff;
+    border: solid 3px #f57f17;
+    font-size: 13px;
+    color: #f57f17;
+    padding-bottom: 0px;
+    padding-top: 0px; }
+
 .fp-slidesContainer {
   overflow-y: auto  !important;
   padding-bottom: 10%;
@@ -458,6 +491,21 @@ main {
       font-size: 16px;
       font-weight: normal;
       color: #f57f17; }
+    .backlogs .backlog .card {
+      border-radius: 5px;
+      background-color: #e4e4e4;
+      border: solid 1px rgba(151, 151, 151, 0.12); }
+      .backlogs .backlog .card div {
+        text-align: left; }
+        .backlogs .backlog .card div span {
+          color: #ffffff;
+          font-size: 12px;
+          background-color: #f5a623; }
+        .backlogs .backlog .card div p {
+          font-size: 12px; }
+        .backlogs .backlog .card div h6 {
+          font-size: 14px;
+          font-weight: bold; }
   .backlogs .header {
     border-radius: 10px 10px 0px 0px;
     background-color: #fff1d0;
@@ -481,7 +529,8 @@ main {
     .backlogs .config div i {
       color: #f57f17;
       position: initial;
-      border-color: transparent; }
+      border-color: transparent;
+      font-size: 30px; }
     .backlogs .config div a {
       font-size: 16px;
       font-weight: normal;
