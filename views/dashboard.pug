@@ -93,7 +93,7 @@ block content
             div.col-md-4.config
               div.mt-4
                 h4 Configurar Release
-                i.fa.fa-long-arrow-right
+                i.fa.fa-long-arrow-right.pr-5
               div.mt-3.teams
                 h4#teams Equipos
                 a(href="#") Agregar
@@ -101,7 +101,7 @@ block content
                   img(src="../../images/baloom.png").img-fluid
                   p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
         div.slide#slide2(data-anchor='slide2')
-          div.titles.row.mt-3
+          div.titles.row.mt-3.ml-4
             div.col-md-4
               i.fa.fa-long-arrow-left.go-back
               span Volver a Proyecto
@@ -135,20 +135,7 @@ block content
       div.mt-3.container-1
         img(src="../../images/abrazame.png").img-fluid
         p Oh no! Parece que aún no tienes miembros! Registra algunos <a href="#">aqui</a>.
-        
-block header
-  header.navbar.sticky-top.margin-sidemenu.d-flex
-    form.form-inline.mr-auto
-      <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
-    div.mr-4
-      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
-      a(href="/profile")
-        img(src="../../images/leader.png").img-profile
-    div.d-inline-block.mr-4
-      a(href="/profile")
-        p #{userName}
-        p Perfil
-      
+  
 block sidemenu
   div.sidenav
     img(src="../../images/logo.png")
@@ -177,7 +164,31 @@ block sidemenu
         a.nav-item.nav-link(class=miembros data-toggle='tab', role='tab', aria-selected='true', href='#miembros') Miembros
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
-          img(src="../../images/logout.png").img-profile
+          img(src="../../images/logout.png").img-profile  
+        
+block header
+  header.navbar.sticky-top.margin-sidemenu.d-flex
+    div
+      button( class="navbar-toggler", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+    form.form-inline.mr-auto
+      div.form-group
+        <input class="form-control" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+    div.mr-4
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
+      a(href="/profile")
+        img(src="../../images/leader.png").img-profile
+    div.d-inline-block.mr-4
+      a(href="/profile")
+        p #{userName}
+        p Perfil
+    #navbarSupportedContent.collapse.navbar-collapse
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link(class=home href='/home_projects') Home
+        a.nav-item.nav-link(class=proyectos data-toggle='tab', role='tab', aria-selected='true', href='#proyectos') Proyectos
+        a.nav-item.nav-link(class=archivero data-toggle='tab', role='tab', aria-selected='true', href='#archivero') Archivero
+        a.nav-item.nav-link(class=equipos data-toggle='tab', role='tab', aria-selected='true', href='#equipos') Equipos
+        a.nav-item.nav-link(class=miembros data-toggle='tab', role='tab', aria-selected='true', href='#miembros') Miembros
     
 block side-modal
   div#mySidenav.side-modal.pt-3
