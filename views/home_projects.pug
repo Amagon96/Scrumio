@@ -3,6 +3,9 @@ extends layout
 block content
   main
     div.container#home
+      if message != undefined
+        div.row
+          div#note.alert.alert-danger.col #{message}
       if projects.length <= 0
         img(src="images/empty_state_proyect.png").img-fluid
         p Parece que está algo vacio por aqui, por qué no empezamos creando un <a class="modalProyecto" href="#">proyecto</a>.

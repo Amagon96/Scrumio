@@ -11,9 +11,11 @@ module.exports = function(app, passport) {
         failureFlash : true // allow flash messages
     }));
 
-    app.get('/dashboard/:tab?', securityMiddleware.isLoggedIn, indexController.dashboard);
+    app.get('/dashboard/:id', securityMiddleware.isLoggedIn,
+                              securityMiddleware.hasProyect,
+                              indexController.dashboard);
 
-    app.get('/dashboard/:id', securityMiddleware.isLoggedIn, indexController.dashboard);
+    app.get('/dashboard/tab/:tab?', securityMiddleware.isLoggedIn, indexController.dashboard);
 
     app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/dashboard', // redirect to the secure profile section

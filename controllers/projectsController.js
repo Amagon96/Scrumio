@@ -45,9 +45,20 @@ function create(req, res, next){
         objs: err
       });
     }else{
-      res.render('dashboard', {
-        title: "Dashboard",
-        userName: req.user.local.name
+      Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
+        if(err){
+          res.json({
+            err: true,
+            message: 'No se puedieron extraer los proyectos',
+            objs: err
+          });
+        }else{
+          res.render('home_projects', {
+            title: "Proyectos",
+            userName: req.user.local,
+            projects: objs
+          });
+        }
       });
     }
   });

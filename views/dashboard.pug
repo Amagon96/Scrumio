@@ -36,7 +36,7 @@ block content
           div.row.data
             div.col-md-4.mb-2
               div.wrapper.ml-5
-                img.img-thumbnail(src="../images/osito.png")
+                img.img-thumbnail(src="../../images/osito.png")
                 div.overlay <i class="fa fa-camera"></i> Subir Foto
             div.col-md-7.data-proyect
               div.row
@@ -45,21 +45,21 @@ block content
               div.row
                 div.col-md-4
                   b Nombre
-                  p WordPress Version 2.
+                  p #{ project[0].nombre }
                 div.col-md-4
                   b Fecha de Solicitud
-                  p 12/03/2018
+                  p #{ project[0].date_deployed }
                 div.col-md-4
                   b Fecha de Arranque
-                  p 12/05/2018
+                  p #{ project[0].date_request }
               div.row
                 div.col-md-12
                   b Product Owner
-                  p Alejandro West
+                  p #{ project[0].product_owner }
               div.row
                 div.col-md-12
                   b Descripcion
-                  p Photographs are a way of preserving a moment in our lives for the rest of our lives. Many of us have at least been tempted at the flashy array of photo printers which seemingly leap off the shelves at even the least tech-savvy. It surely seems old fashioned to talk about 35mm film and non-digital cameras in today’s day and age. To our children, cameras not so feature rich with LCD screens and built in Wi-Fi is as foreign as Atari.
+                  p #{ project[0].description }
           div.row.backlogs.mt-3
             div.col-md-4
               h3 Product Backlog
@@ -67,7 +67,7 @@ block content
                 i.fa.fa-plus-square
               div.backlog.pb-2
                 div.pt-5
-                  img(src="../images/reader.png").img-fluid
+                  img(src="../../images/reader.png").img-fluid
                   p Para comenzar a organizar tu proyecto, empecemos a crear las <a href="#" id="openSideModal">tareas</a>
                   div.card.m-2
                     div.pl-3
@@ -88,7 +88,7 @@ block content
               div.header
               div.backlog
                 div.pt-5
-                  img(src="../images/reader.png").img-fluid
+                  img(src="../../images/reader.png").img-fluid
                   p Una vez validadas tus tareas arrastralas a esta sección.
             div.col-md-4.config
               div.mt-4
@@ -98,7 +98,7 @@ block content
                 h4#teams Equipos
                 a(href="#") Agregar
                 div.pt-5
-                  img(src="../images/baloom.png").img-fluid
+                  img(src="../../images/baloom.png").img-fluid
                   p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
         div.slide#slide2(data-anchor='slide2')
           div.titles.row.mt-3
@@ -115,7 +115,7 @@ block content
         div
           h2 Archivero de Proyectos
       div.mt-3.container-1
-        img(src="../images/panzon.png")
+        img(src="../../images/panzon.png")
         p Parece que no tienes ningún proyecto archivado, pero no te asustes. Una vez que terminas tus proyectos podrás verlos aqui.
     div#equipos.tab-pane.fade.container(class=equipos)
       div.d-flex.mt-3
@@ -124,7 +124,7 @@ block content
         div.ml-auto 
           button#addTeam.btn AGREGAR EQUIPO
       div.mt-3.container-1
-        img(src="../images/snoppy.png").img-fluid
+        img(src="../../images/snoppy.png").img-fluid
         p Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos <a href="#">aqui</a>.
     div#miembros.tab-pane.fade.container(class=miembros)
       div.d-flex.mt-3
@@ -133,7 +133,7 @@ block content
         div.ml-auto 
           button.btn AGREGAR MIEMBROS
       div.mt-3.container-1
-        img(src="../images/abrazame.png").img-fluid
+        img(src="../../images/abrazame.png").img-fluid
         p Oh no! Parece que aún no tienes miembros! Registra algunos <a href="#">aqui</a>.
         
 block header
@@ -143,7 +143,7 @@ block header
     div.mr-4
       button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
       a(href="/profile")
-        img(src="../images/leader.png").img-profile
+        img(src="../../images/leader.png").img-profile
     div.d-inline-block.mr-4
       a(href="/profile")
         p #{userName}
@@ -151,7 +151,7 @@ block header
       
 block sidemenu
   div.sidenav
-    img(src="../images/logo.png")
+    img(src="../../images/logo.png")
     div.menu.mt-5
       div.nav.nav-tabs(role='tablist')
         - var home = '', proyectos = '', archivero = '', equipos = '', miembros = ''
@@ -170,14 +170,14 @@ block sidemenu
             - break
           default 
             - proyectos = 'active'
-        a.nav-item.nav-link(class=home data-toggle='tab', role='tab', aria-selected='true', href='#home') Home
+        a.nav-item.nav-link(class=home href='/home_projects') Home
         a.nav-item.nav-link(class=proyectos data-toggle='tab', role='tab', aria-selected='true', href='#proyectos') Proyectos
         a.nav-item.nav-link(class=archivero data-toggle='tab', role='tab', aria-selected='true', href='#archivero') Archivero
         a.nav-item.nav-link(class=equipos data-toggle='tab', role='tab', aria-selected='true', href='#equipos') Equipos
         a.nav-item.nav-link(class=miembros data-toggle='tab', role='tab', aria-selected='true', href='#miembros') Miembros
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
-          img(src="../images/logout.png").img-profile
+          img(src="../../images/logout.png").img-profile
     
 block side-modal
   div#mySidenav.side-modal.pt-3
