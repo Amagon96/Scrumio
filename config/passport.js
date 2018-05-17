@@ -103,6 +103,7 @@ module.exports = function(passport) {
        clientID        : configAuth.facebookAuth.clientID,
        clientSecret    : configAuth.facebookAuth.clientSecret,
        callbackURL     : configAuth.facebookAuth.callbackURL,
+       profileFields   : ['id', 'name', 'email'],
        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 
    },
@@ -194,7 +195,7 @@ module.exports = function(passport) {
                 } else {
                     // if the user isnt in our database, create a new user
                     var newUser          = new User();
-
+                    console.log(profile);
                     // set all of the relevant information
                     newUser.google.id    = profile.id;
                     newUser.google.token = token;
