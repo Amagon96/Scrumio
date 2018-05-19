@@ -3,6 +3,7 @@ const Project = require('../models/project');
 const mongoose = require('mongoose');
 
 function index(req, res, next){
+  var user;
   Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
       res.json({
@@ -11,10 +12,18 @@ function index(req, res, next){
         objs: err
       });
     }else{
+      if(req.user.local.name){
+        user = req.user.local
+      }else if(req.user.google.name) {
+        user = req.user.google
+      }else if(req.user.facebook.name) {
+        user = req.user.facebook
+      }
       res.render('projects', {
         title: "Proyectos",
-        userName: req.user.local,
-        projects: objs
+        userName: user,
+        projects: objs,
+        project_id: req.params.project_id
       });
     }
   });
@@ -65,6 +74,7 @@ function create(req, res, next){
 }
 
 function home(req, res, next){
+  var user;
   Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
       res.json({
@@ -73,9 +83,16 @@ function home(req, res, next){
         objs: err
       });
     }else{
+      if(req.user.local.name){
+        user = req.user.local
+      }else if(req.user.google.name) {
+        user = req.user.google
+      }else if(req.user.facebook.name) {
+        user = req.user.facebook
+      }
       res.render('home_projects', {
         title: "Proyectos",
-        userName: req.user.local,
+        userName: user,
         projects: objs
       });
     }

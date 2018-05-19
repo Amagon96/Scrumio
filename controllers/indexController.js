@@ -11,7 +11,6 @@ function index(request, response, next) {
 }
 
 function dashboard(request, response, next) {
-  console.log(request.params.id);
   Project.find({_id : request.params.id}, (err, obj)=>{
     if(err){
       response.json({
@@ -20,10 +19,9 @@ function dashboard(request, response, next) {
         obj: err
       });
     }else{
-      console.log(obj);
       response.render('dashboard', {
         title: "Dashboard",
-        userName: request.user.local.name,
+        userName: request.user.local.name || request.user.google.name || request.user.facebook.name,
         tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab,
         project: obj
       });

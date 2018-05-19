@@ -31,7 +31,7 @@ $font-input: FontAwesome, "Open Sans", Verdana, sans-serif;
     border-radius: 10px;
     background-color: #e4e4e4 !important;
     img{
-      min-width: 220px;
+      min-width: $img-min-width;
       display: block;
       width: 100%;
     }
@@ -116,6 +116,17 @@ header{
     text-decoration: inherit;
     color: inherit;
     cursor: pointer;
+  }
+  .navbar-toggler{
+    display: none;
+    border: 2px solid black
+  }
+  .navbar-collapse{
+    .nav-tabs{
+      .nav-item{
+        font-size: 20px !important;
+      }
+    }
   }
 }
 body{
@@ -265,7 +276,7 @@ main{
       }
     }
   }
-  @include img-with-overlay(250px);
+  @include img-with-overlay(190px);
 }
 
 #logUser{
@@ -695,7 +706,7 @@ main{
 @media screen and (max-width: 1117px) {
 
   main{
-    padding-left: 15% !important;
+    padding-left: 16% !important;
   }
 
 }
@@ -716,19 +727,64 @@ main{
   .margin-sidemenu{
     margin-left: 0px;
   }
-  .wrapper{
+  .img-project{
     right: 25%;
+  }
+  .navbar-toggler{
+    display: inline-block !important;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .wrapper{
-    right: 0%;
-    margin-bottom: 5%;
+  .data{
+    .wrapper{
+      right: 0%;
+      margin-bottom: 5%;
+      margin-left: 23.5% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #profile{
+    .profesional{
+      margin-left: 0px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  header{
+    form.mr-auto{
+      margin-right: 0px !important;
+      margin-top: 4% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 515px) {
+  .table-projects td, .table-projects th{
+    padding: .3rem !important;
   }
 }
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+@media screen and (max-width: 440px) {
+  .data{
+    .wrapper{
+      margin-left: 20% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 382px) {
+  .data{
+    .wrapper{
+      margin-left: 10% !important;
+    }
+  }
 }

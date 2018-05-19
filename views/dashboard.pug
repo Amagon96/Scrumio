@@ -26,7 +26,7 @@ block content
         div.slide#slide1(data-anchor='slide1')
           div.titles.row.mt-2
             div.col-md-4
-              a(href="/projects")
+              a(href="/projects/"+project[0]._id)
                 i.fa.fa-long-arrow-left
               span Ver Lista
             div.col-md-4
@@ -35,7 +35,7 @@ block content
               button.btn Terminar Proyecto
           div.row.data
             div.col-md-4.mb-2
-              div.wrapper.ml-5
+              div.wrapper.ml-5.img-project
                 img.img-thumbnail(src="../../images/osito.png")
                 div.overlay <i class="fa fa-camera"></i> Subir Foto
             div.col-md-7.data-proyect
@@ -167,19 +167,19 @@ block sidemenu
           img(src="../../images/logout.png").img-profile  
         
 block header
-  header.navbar.sticky-top.margin-sidemenu.d-flex
+  header.navbar.sticky-top.margin-sidemenu.d-flex.justify-content-center
     div
-      button( class="navbar-toggler", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
-        span.navbar-toggler-icon
+      button(class="btn navbar-toggler mr-2", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        i.fa.fa-bars
     form.form-inline.mr-auto
       div.form-group
         <input class="form-control" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
     div.mr-4
       button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
-      a(href="/profile")
+      a(href="/profile/"+project[0]._id)
         img(src="../../images/leader.png").img-profile
     div.d-inline-block.mr-4
-      a(href="/profile")
+      a(href="/profile/"+project[0]._id)
         p #{userName}
         p Perfil
     #navbarSupportedContent.collapse.navbar-collapse

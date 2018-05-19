@@ -2,49 +2,58 @@ extends layout
 
 block content
   main.container-fluid#projects
-    div.row.ml-5.p-3
-      h2 Listado de Proyectos
     div.container.mt-4
-      table.table
-        thead
-          tr
-            th(scope='col') Nombre
-            th(scope='col') Fecha de Inicio
-            th(scope='col') Fecha de Arranque
-            th(scope='col') Equipos
-            th(scope='col') 
-        tbody
-          each val in projects
-            tr(id=val._id)
-              td.abilityName #{val.nombre}
-              td.abilityType #{val.date_request}
-              td.abilityType #{val.date_deployed}
-              td.abilityType equipos
-              td 
-                button.btn VER
+      div.row.ml-5.p-3
+        div.col-md-12
+          h2 Listado de Proyectos
+      div.row
+        div.col-md-12
+          table.table.table-projects
+            thead
+              tr
+                th(scope='col') Nombre
+                th(scope='col') Fecha de Inicio
+                th(scope='col') Fecha de Arranque
+                th(scope='col') Equipos
+                th(scope='col') 
+            tbody
+              each val in projects
+                tr(id=val._id)
+                  td.abilityName #{val.nombre}
+                  td.abilityType #{val.date_request}
+                  td.abilityType #{val.date_deployed}
+                  td.abilityType equipos
+                  td 
+                    a(href='/dashboard/'+val._id)
+                      button.btn VER
 block header
-  header.navbar.sticky-top.margin-sidemenu.d-flex
+  header.navbar.sticky-top.margin-sidemenu.d-flex.justify-content-center
+    div
+      button(class="btn navbar-toggler mr-2", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        i.fa.fa-bars
     form.form-inline.mr-auto
-      <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+      div.form-group
+        <input class="form-control" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
     div.mr-4
-      button.btn.btn-createProy.mr-3 Nuevo Proyecto
-      a(href="/profile")
-        img(src="images/leader.png").img-profile
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
+      a(href="/profile/"+project_id)
+        img(src="../../images/leader.png").img-profile
     div.d-inline-block.mr-4
-      a(href="/profile")
+      a(href="/profile/"+project_id)
         p #{userName.name}
         p Perfil
+    #navbarSupportedContent.collapse.navbar-collapse
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link.send-active(href='/home_projects') Home
+        a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
         
 block sidemenu
   div.sidenav
-    img(src="images/logo.png")
+    img(src="../images/logo.png")
     div.menu.mt-5
       div.nav.nav-tabs(role='tablist')
         a.nav-item.nav-link.send-active(href='/home_projects') Home
-        a.nav-item.nav-link.send-active(href='/dashboard/tab/proyectos') Proyectos
-        a.nav-item.nav-link.send-active(href='/dashboard/tab/archivero') Archivero
-        a.nav-item.nav-link.send-active(href='/dashboard/tab/equipos') Equipos
-        a.nav-item.nav-link.send-active(href='/dashboard/tab/miembros') Miembros
+        a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
-          img(src="images/logout.png").img-profile
+          img(src="../images/logout.png").img-profile

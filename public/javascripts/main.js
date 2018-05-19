@@ -21,6 +21,7 @@ $(document).ready(() =>{
   });
 
   var dialog;
+
   $("#addTeam").click(()=>{
     body = `<div id="modalAddTeam">
               <h4>Crear Nuevo Equipo</h4>
@@ -45,9 +46,10 @@ $(document).ready(() =>{
   });
 
   $("#addAbility").click(()=>{
+    project_id = $(this).attr("data-project_id");
     body = `<div id="modalAddAbility">
               <h4>Crear Nueva Habilidad</h4>
-              <form method='POST' action='/abilities'>
+              <form method='POST' action='/abilities/${project_id}'>
                 <div class="form-group">
                   <label>Nombre</label>
                   <input name="name" id="createTeam" type="text" placeholder="Escribe el nombre de tu Habilidad" class="form-control"/>

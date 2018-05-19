@@ -15,8 +15,6 @@ module.exports = function(app, passport) {
                               securityMiddleware.hasProyect,
                               indexController.dashboard);
 
-    app.get('/dashboard/tab/:tab?', securityMiddleware.isLoggedIn, indexController.dashboard);
-
     app.post('/login', passport.authenticate('local-login', {
         successRedirect : '/dashboard', // redirect to the secure profile section
         failureRedirect : '/', // redirect back to the signup page if there is an error
@@ -27,7 +25,7 @@ module.exports = function(app, passport) {
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect : '/profile',
+            successRedirect : '/home_projects',
             failureRedirect : '/'
         }));
 
@@ -38,7 +36,7 @@ module.exports = function(app, passport) {
     // handle the callback after facebook has authorized the user
     app.get('/connect/facebook/callback',
        passport.authorize('facebook', {
-           successRedirect : '/profile',
+           successRedirect : '/home_projects',
            failureRedirect : '/'
        }));
 
@@ -46,7 +44,7 @@ module.exports = function(app, passport) {
 
     app.get('/auth/google/callback',
            passport.authenticate('google', {
-                   successRedirect : '/profile',
+                   successRedirect : '/home_projects',
                    failureRedirect : '/'
            }));
 
@@ -54,7 +52,7 @@ module.exports = function(app, passport) {
 
     app.get('/connect/google/callback',
        passport.authorize('google', {
-           successRedirect : '/profile',
+           successRedirect : '/home_projects',
            failureRedirect : '/'
        }));
     app.get('/logout', indexController.logout);
