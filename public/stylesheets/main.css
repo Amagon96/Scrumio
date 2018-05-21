@@ -497,8 +497,8 @@ main {
       font-size: 16px;
       font-weight: normal;
       color: #f57f17; }
-    .backlogs .backlog #productBacklog {
-      min-height: 100px; }
+    .backlogs .backlog #productBacklog, .backlogs .backlog #releaseBacklog {
+      min-height: 200px; }
     .backlogs .backlog .card {
       border-radius: 5px;
       background-color: #e4e4e4;
@@ -510,6 +510,8 @@ main {
           color: #ffffff;
           font-size: 12px;
           background-color: #f5a623; }
+        .backlogs .backlog .card div .validate {
+          background-color: #449c48; }
         .backlogs .backlog .card div p {
           font-size: 12px; }
         .backlogs .backlog .card div h6 {
@@ -530,7 +532,8 @@ main {
       color: #f57f17;
       position: relative;
       top: 60px;
-      font-size: 40px; }
+      font-size: 40px;
+      cursor: pointer; }
   .backlogs .config div {
     border-radius: 10px;
     background-color: #ffffff; }

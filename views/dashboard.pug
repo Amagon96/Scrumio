@@ -18,7 +18,7 @@ block content
           - miembros = 'active show'
           - break
         default 
-          - proyectos = 'active'
+          - proyectos = 'active'    
     div#home.tab-pane.fade.container(class=home)
       
     div#proyectos.tab-pane.fade.show.container(class=proyectos)
@@ -64,48 +64,60 @@ block content
             div.col-md-4
               h3 Product Backlog
               div.header
-                i.fa.fa-plus-square
+                i.fa.fa-plus-square.openSideModal
               div.backlog.pb-2
-                div.pt-5
-                  img(src="../../images/reader.png").img-fluid
-                  p Para comenzar a organizar tu proyecto, empecemos a crear las <a href="#" id="openSideModal">tareas</a>
-                  div#productBacklog
-                    div.card.m-2
-                      div.pl-3
-                        h6.d-inline-block Narrativa de la Historia
-                        span.float-right.pl-3.pr-3
-                          strong STATUS
-                      div.pl-3
-                        p Soy una tarjeta muy simple.
-                      div.pl-3
-                        h6 Como
-                      div.pl-3
-                        p Soy buena mostrando pequeños trozos de información. Soy conveniente porque requiero pocas etiquetas para usarme efectivamente…
-                      div.pl-3
-                        a(href="#").mr-2 REVERSO DE TARJETA
-                        a(href="#") VER DETALLE DE TAREA
-                    div.card.m-2
-                      div.pl-3
-                        h6.d-inline-block Narrativa de la Historia
-                        span.float-right.pl-3.pr-3
-                          strong STATUS
-                      div.pl-3
-                        p Soy una tarjeta muy simple.
-                      div.pl-3
-                        h6 Como
-                      div.pl-3
-                        p Soy buena mostrando pequeños trozos de información. Soy conveniente porque requiero pocas etiquetas para usarme efectivamente…
-                      div.pl-3
-                        a(href="#").mr-2 REVERSO DE TARJETA
-                        a(href="#") VER DETALLE DE TAREA
+                - var histories_validates = [], histories_in_process = []
+                each val, index in histories
+                  if val.state == "Validado"
+                    - histories_validates.push(val)
+                  else
+                    - histories_in_process.push(val)
+                if histories_in_process.length == 0 
+                  div.pt-5.empty_state
+                    img(src="../../images/reader.png").img-fluid
+                    p Para comenzar a organizar tu proyecto, empecemos a crear las <a href="#" class="openSideModal">tareas</a>
+                  div#productBacklog.pt-3  
+                else
+                  div#productBacklog.pt-3
+                    each val in histories_in_process
+                      div.card.m-2(data-id=val._id)
+                        div.pl-3
+                          h6.d-inline-block Narrativa de la Historia
+                          span.float-right.pl-3.pr-3 
+                            strong.status #{val.state}
+                        div.pl-3
+                          p #{val.narrative}
+                        div.pl-3
+                          h6 Como
+                        div.pl-3
+                          p #{val.so_that}
+                        div.pl-3
+                          a(href="#").mr-2 REVERSO DE TARJETA
+                          a(href="#") VER DETALLE DE TAREA
             div.col-md-4
               h3 Release Backlog
               div.header
-              div#releaseBacklog.backlog
-                div.pt-5
-                  img(src="../../images/reader.png").img-fluid
-                  p Una vez validadas tus tareas arrastralas a esta sección.
-                  div#releaseBacklog
+              div.backlog
+                if histories_validates.length == 0 
+                  div.pt-5.empty_state
+                    img(src="../../images/reader.png").img-fluid
+                    p Una vez validadas tus tareas arrastralas a esta sección.
+                div#releaseBacklog.pt-3
+                  each val in histories_validates
+                    div.card.m-2(data-id=val._id)
+                      div.pl-3
+                        h6.d-inline-block Narrativa de la Historia
+                        span.float-right.pl-3.pr-3.validate
+                          strong.status #{val.state}
+                      div.pl-3
+                        p #{val.narrative}
+                      div.pl-3
+                        h6 Como
+                      div.pl-3
+                        p #{val.so_that}
+                      div.pl-3
+                        a(href="#").mr-2 REVERSO DE TARJETA
+                        a(href="#") VER DETALLE DE TAREA
             div.col-md-4.config
               div.mt-4
                 h4 Configurar Release
@@ -209,35 +221,38 @@ block header
 block side-modal
   div#mySidenav.side-modal.pt-3
     h2.pl-3 Agregar Historia de Usuario
-    form.pb-3.pl-3
+    form.pb-3.pl-3(method='POST', action='/histories/'+project[0]._id)
       div.form-group
         label Narrativa de Historia
-        input#history.form-control(type='text', placeholder='Escriba un nombre corto')
+        input#history.form-control(name="narrative", type='text', placeholder='Escriba un nombre corto')
       div.form-row
         div.form-group.col-md-6
           label(for='priority') Prioridad
-          input#priority.form-control(type='text', placeholder='Escriba la prioridad')
+          input#priority.form-control(name="priority", type='text', placeholder='Escriba la prioridad')
         div.form-group.col-md-6
           label(for='size') Tamaño
-          input#size.form-control(type='text', placeholder='Escriba el tamaño')
+          input#size.form-control(name="size", type='text', placeholder='Escriba el tamaño')
       div.form-group
         label(for='how') Como
-        textarea#how.form-control(rows='3', placeholder='Escriba como va a realizar la tarea…')
+        textarea#how.form-control(name="how", rows='3', placeholder='Escriba como va a realizar la tarea…')
       div.form-group
         label(for='want') Quiero
-        textarea#want.form-control(rows='3', placeholder='Escriba las funcionalidades de la tarea…')
+        textarea#want.form-control(name="what_i_want", rows='3', placeholder='Escriba las funcionalidades de la tarea…')
       div.form-group
         label(for='way') De tal manera
-        textarea#way.form-control(rows='3', placeholder='Escriba de que manera realizara la tarea…')
+        textarea#way.form-control(name="way", rows='3', placeholder='Escriba de que manera realizara la tarea…')
       div.form-group
         label(for='giveIt') Dado
-        input#give.form-control(type='text', placeholder='Escriba dado algo')
+        input#give.form-control(name="give_it", type='text', placeholder='Escriba dado algo')
+      div.form-group
+        label(for='criteria') Criterio de Aceptación
+        input#when.form-control(name="criteria", type='text', placeholder='Escriba cuando algo')
       div.form-group
         label(for='when') Cuando
-        input#when.form-control(type='text', placeholder='Escriba cuando algo')
+        input#when.form-control(name="when", type='text', placeholder='Escriba cuando algo')
       div.form-group
         label(for='then') Entonces
-        input#then.form-control(type='text', placeholder='Escriba el Entonces de algo ')
+        input#then.form-control(name="then", type='text', placeholder='Escriba el Entonces de algo ')
       div.d-flex.justify-content-end
         button#closeSideModal.pr-2(type="button") Cancelar
-        button Agregar
+        button(type="submit") Agregar

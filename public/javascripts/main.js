@@ -7,7 +7,7 @@ $(document).ready(() =>{
     $("#overlay").css("opacity","0.9");
   });
 
-  $("#openSideModal").click(()=>{
+  $(".openSideModal").click(()=>{
     $("#mySidenav").width("521px");
     $("#mySidenav").css("overflow-y","visible");
     $("#overlay").width("100%");
@@ -250,6 +250,53 @@ $(document).ready(() =>{
 
   dragula([document.getElementById("productBacklog"), document.getElementById("releaseBacklog")],{
     revertOnSpill: true
+  }).on('drop', function(el, target, source, sibling){
+    const backlog = $(target).attr("id");
+    const history_id = $(el).attr("data-id");
+    $(target).css("border", "1px dashed #f5a623");
+    if(backlog == 'releaseBacklog'){
+      $(el).find(".status").text("Validado");
+      $(el).find(".status").parent().css("background-color", "#449c48");
+      $.ajax({
+        url: "/histories/update_state/"+history_id,
+        type: "PUT",
+        data:{
+          state: 'Validado'
+        }
+      }).done(function() {
+          $.toast("Historia Actualizada :)");
+        })
+        .fail(function(err) {
+          console.log(err);
+          $.toast("Historia no Actualizada :/");
+        })
+        .always(function() {
+        });
+    }else if (backlog == "productBacklog"){
+      $(el).find(".status").text("En Validación");
+      $(el).find(".status").parent().css("background-color", "#f5a623");
+      $.ajax({
+        url: "/histories/update_state/"+history_id,
+        type: "PUT",
+        data:{
+          state: 'En Validación'
+        }
+      }).done(function() {
+          $.toast("Historia Actualizada :)");
+        })
+        .fail(function(err) {
+          $.toast("Historia no Actualizada :/");
+        })
+        .always(function() {
+        });
+    }
+    if($(target).children().length == 1){
+      $(target).siblings().remove();
+    }
+    if($(source).children().length == 0){
+      $(source).parent().prepend(`<div class="pt-5 empty_state"><img src="../../images/reader.png" class="img-fluid"/>
+                          <p>Para comenzar a organizar tu proyecto, empecemos a crear las <a href="#" class="openSideModal">tareas</a></p>
+                        </div>`);
+    }
   });
-
 });

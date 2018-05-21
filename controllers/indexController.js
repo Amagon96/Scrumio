@@ -1,6 +1,7 @@
 const express = require('express');
 const Project = require('../models/project');
 const User = require('../models/user');
+const History = require('../models/history');
 const mongoose = require('mongoose');
 
 function index(request, response, next) {
@@ -19,11 +20,14 @@ function dashboard(request, response, next) {
         obj: err
       });
     }else{
-      response.render('dashboard', {
-        title: "Dashboard",
-        userName: request.user.local.name || request.user.google.name || request.user.facebook.name,
-        tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab,
-        project: obj
+      History.find({"project_id": obj[0]._id}, function(err, objs){
+        response.render('dashboard', {
+          title: "Dashboard",
+          userName: request.user.local.name || request.user.google.name || request.user.facebook.name,
+          tabActive: request.params.tab == 'undefined' ? 'home' : request.params.tab,
+          project: obj,
+          histories: objs
+        });
       });
     }
   });

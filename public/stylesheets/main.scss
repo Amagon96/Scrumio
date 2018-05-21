@@ -536,8 +536,8 @@ main{
       font-weight: normal;
       color: #f57f17;
     }
-    #productBacklog{
-      min-height: 100px;
+    #productBacklog, #releaseBacklog{
+      min-height: 200px;
     }
     .card{
       border-radius: 5px;
@@ -550,6 +550,9 @@ main{
           color: #ffffff;
           font-size: 12px;
           background-color: #f5a623;
+        }
+        .validate{
+          background-color: #449c48;
         }
         p{
           font-size: 12px;
@@ -579,6 +582,7 @@ main{
       position: relative;
       top: 60px;
       font-size: 40px;;
+      cursor: pointer;
     }
   }
   .config{
