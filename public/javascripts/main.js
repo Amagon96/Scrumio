@@ -45,8 +45,9 @@ $(document).ready(() =>{
     });
   });
 
-  $("#addAbility").click(()=>{
-    project_id = $(this).attr("data-project_id");
+  $("#addAbility").click(function(){
+    project_id = $(this).attr("data-id");
+    console.log(project_id);
     body = `<div id="modalAddAbility">
               <h4>Crear Nueva Habilidad</h4>
               <form method='POST' action='/abilities/${project_id}'>
@@ -247,17 +248,8 @@ $(document).ready(() =>{
     });
   });
 
-  // $(".card-proyect").click(function(){
-  //   $.ajax({
-  //     url: "/projects/"+$(this).attr("data-id")
-  //   }).done(function(obj) {
-  //
-  //     })
-  //     .fail(function(err) {
-  //       $.toast("Error al cargar proyecto :/");
-  //     })
-  //     .always(function() {
-  //     });
-  // });
+  dragula([document.getElementById("productBacklog"), document.getElementById("releaseBacklog")],{
+    revertOnSpill: true
+  });
 
 });

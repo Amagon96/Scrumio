@@ -497,10 +497,13 @@ main {
       font-size: 16px;
       font-weight: normal;
       color: #f57f17; }
+    .backlogs .backlog #productBacklog {
+      min-height: 100px; }
     .backlogs .backlog .card {
       border-radius: 5px;
       background-color: #e4e4e4;
-      border: solid 1px rgba(151, 151, 151, 0.12); }
+      border: solid 1px rgba(151, 151, 151, 0.12);
+      cursor: move; }
       .backlogs .backlog .card div {
         text-align: left; }
         .backlogs .backlog .card div span {
@@ -512,6 +515,12 @@ main {
         .backlogs .backlog .card div h6 {
           font-size: 14px;
           font-weight: bold; }
+        .backlogs .backlog .card div a {
+          font-size: 12px;
+          font-weight: 600;
+          color: #ffa726; }
+        .backlogs .backlog .card div:last-of-type {
+          border-top: solid 1px #8F8C88; }
   .backlogs .header {
     border-radius: 10px 10px 0px 0px;
     background-color: #fff1d0;
@@ -544,6 +553,29 @@ main {
     .backlogs .config div p {
       font-size: 18px;
       font-weight: normal; }
+
+.card {
+  border-radius: 5px;
+  background-color: #e4e4e4;
+  border: solid 1px rgba(151, 151, 151, 0.12);
+  cursor: move; }
+  .card div {
+    text-align: left; }
+    .card div span {
+      color: #ffffff;
+      font-size: 12px;
+      background-color: #f5a623; }
+    .card div p {
+      font-size: 12px; }
+    .card div h6 {
+      font-size: 14px;
+      font-weight: bold; }
+    .card div a {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffa726; }
+    .card div:last-of-type {
+      border-top: solid 1px #8F8C88; }
 
 #modalDeleteTeam .closeModal {
   background: none;
@@ -628,6 +660,28 @@ main {
   text-align: center;
   opacity: 0;
   transition: opacity 1s; }
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80); }
+
+.gu-hide {
+  display: none !important; }
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important; }
+
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20); }
 
 @media screen and (max-width: 1135px) {
   header .form-control {

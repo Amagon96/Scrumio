@@ -18,6 +18,7 @@ function index(request, response, next) {
       }else if(request.user.facebook.name) {
         user = request.user.facebook
       }
+      console.log(request.params.project_id);
       response.render('profile', {
         title: "Profile",
         user_id: request.user._id,
