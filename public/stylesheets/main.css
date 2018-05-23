@@ -482,6 +482,9 @@ main {
 
 .backlogs {
   margin-right: 10px; }
+  .backlogs h1 {
+    font-weight: bold;
+    font-size: 18px; }
   .backlogs h3 {
     font-size: 20px;
     font-weight: bold; }
@@ -527,7 +530,21 @@ main {
     border-radius: 10px 10px 0px 0px;
     background-color: #fff1d0;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
-    min-height: 80px; }
+    min-height: 80px;
+    text-align: left; }
+    .backlogs .header label {
+      font-size: 13px;
+      font-weight: bold; }
+    .backlogs .header .form-control {
+      border: none;
+      border-bottom: 2px solid #f57f17;
+      border-radius: 0px;
+      font-size: 13px;
+      color: #4a4a4a; }
+      .backlogs .header .form-control:focus {
+        box-shadow: none; }
+    .backlogs .header input {
+      background-color: transparent; }
     .backlogs .header i {
       color: #f57f17;
       position: relative;
@@ -591,6 +608,23 @@ main {
   font-size: 13px;
   font-weight: bold;
   font-size: 18px; }
+
+#slides-release h1 {
+  font-size: 18px;
+  font-weight: bold; }
+
+#modalAddSprint label {
+  font-size: 13px;
+  font-weight: bold; }
+
+#modalAddSprint .form-control {
+  border: none;
+  border-bottom: 2px solid #f57f17;
+  border-radius: 0px;
+  font-size: 13px;
+  color: #4a4a4a; }
+  #modalAddSprint .form-control:focus {
+    box-shadow: none; }
 
 .side-modal {
   height: 100%;

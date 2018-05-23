@@ -253,7 +253,6 @@ $(document).ready(() =>{
   }).on('drop', function(el, target, source, sibling){
     const backlog = $(target).attr("id");
     const history_id = $(el).attr("data-id");
-    $(target).css("border", "1px dashed #f5a623");
     if(backlog == 'releaseBacklog'){
       $(el).find(".status").text("Validado");
       $(el).find(".status").parent().css("background-color", "#449c48");
@@ -299,4 +298,55 @@ $(document).ready(() =>{
                         </div>`);
     }
   });
+
+
+  $('#slides-release').slick({
+     slidesToShow: 1,
+  });
+
+  $(".addSprint").click(function(){
+    var project_id = $(this).attr("data-id");
+    body = `<div id="modalAddSprint">
+              <form action="/sprints/${project_id}" method='POST'>
+                <div class="form-group">
+                  <label>Numero de Spring</label>
+                  <input name="num_spring" id="numSpring" type="number" placeholder="Escoge el numero de tu Spring" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label>Fecha de Inicio</label>
+                  <input name="start_date" id="startDate" type="date" placeholder="Selecciona la fecha de Inicio" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label>Fecha de Entrega</label>
+                  <input name="end_date" id="endDate" type="date" placeholder="Selecciona la fecha de Entrega" class="form-control"/>
+                </div>
+                <div class="float-right">
+                  <button type="button" class="closeModal">Cancelar</button>
+                  <button id='saveProyect' type="submit" class='btn btnGuardar'>Guardar</button>
+                </div>
+              </form>
+            </div>`;
+
+    dialog = bootbox.dialog({
+      message: body,
+      closeButton: true
+    });
+  });
+
+  var array = [];
+  var slides =  $("#slides-release").find("div.release");
+  var drops = [];
+  drops.push(document.getElementById('createReleaseBacklog'));
+  slides.each(function(index, item){
+    var id = $(item).attr("id");
+    if(id != '')
+      array.push(id);
+  });
+  for (var i = 0; i < array.length; i++) {
+    drops.push(document.getElementById(array[i]));
+  }
+  dragula(drops,{
+    revertOnSpill: true
+  });
+
 });

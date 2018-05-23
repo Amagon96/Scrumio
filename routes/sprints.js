@@ -8,7 +8,7 @@ app.get('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.findOne
 
 app.get('/sprints/:page?', securityMiddleware.isLoggedIn, sprintsController.showAll);
 
-app.post('/sprints/', securityMiddleware.isLoggedIn, sprintsController.create);
+app.post('/sprints/:project_id', securityMiddleware.isLoggedIn, sprintsController.create);
 
 app.put('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.update);
 

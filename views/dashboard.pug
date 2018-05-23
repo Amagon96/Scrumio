@@ -60,7 +60,7 @@ block content
                 div.col-md-12
                   b Descripcion
                   p #{ project[0].description }
-          div.row.backlogs.mt-3
+          div.row.backlogs.mt-3.mb-5
             div.col-md-4
               h3 Product Backlog
               div.header
@@ -118,7 +118,7 @@ block content
                       div.pl-3
                         a(href="#").mr-2 REVERSO DE TARJETA
                         a(href="#") VER DETALLE DE TAREA
-            div.col-md-4.config
+            div.col-md-4.config.mb-5
               div.mt-4
                 h4 Configurar Release
                 i.fa.fa-long-arrow-right.pr-5
@@ -129,15 +129,65 @@ block content
                   img(src="../../images/baloom.png").img-fluid
                   p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
         div.slide#slide2(data-anchor='slide2')
-          div.titles.row.mt-3.ml-4
+          div.titles.row.mt-3.ml-5
             div.col-md-4
               i.fa.fa-long-arrow-left.go-back
               span Volver a Proyecto
             div.col-md-4
               h4 Configurar Release
             div.col-md-4
-              button.btn Agregar Release
-          
+              button.btn.addSprint(data-id=project[0]._id) Agregar Release
+          div.row.backlogs.ml-5.pl-2
+            div.col-md-4
+              h1 Release Backlog
+              div.header
+              div.backlog.p-1#createReleaseBacklog
+                each val in histories_validates
+                  div.card.m-1(data-id=val._id)
+                    div.pl-3
+                      h6.d-inline-block Narrativa de la Historia
+                      span.float-right.pl-3.pr-3.validate
+                        strong.status #{val.state}
+                    div.pl-3
+                      p #{val.narrative}
+                    div.pl-3
+                      h6 Como
+                    div.pl-3
+                      p #{val.so_that}
+                    div.pl-1
+                      a(href="#").mr-2 REVERSO DE TARJETA
+                      a(href="#") VER DETALLE DE TAREA
+            div.col-md-4.ml-5
+              div#slides-release(data-count-slides=sprints.length)
+                each val in sprints
+                  div.pl-2
+                    h1 Release #{val.sprintNumber}
+                    div.header.pl-2
+                      div
+                        label(for='exampleInputEmail1') Fecha de Entrega
+                        input.form-control(type='date', placeholder='Enter email' value=val.end_date)
+                    div.backlog.p-1.release(id='release-drop'+val.sprintNumber)
+                //- div.pl-2
+                //-   h1 Release 
+                //-   div.header.pl-2
+                //-     div
+                //-       label(for='exampleInputEmail1') Fecha de Entrega
+                //-       input.form-control(type='date', placeholder='Enter email')
+                //-   div.backlog.p-1#release-drop0
+                //- div.pl-2
+                //-   h1 Release 
+                //-   div.header.pl-2
+                //-     div
+                //-       label(for='exampleInputEmail1') Fecha de Entrega
+                //-       input.form-control(type='date', placeholder='Enter email')
+                //-   div.backlog.p-1#release-drop1
+                //- div.pl-2
+                //-   h1 Release 
+                //-   div.header.pl-2
+                //-     div
+                //-       label(for='exampleInputEmail1') Fecha de Entrega
+                //-       input.form-control(type='date', placeholder='Enter email')
+                //-   div.backlog.p-1#release-drop2
     div#archivero.tab-pane.fade.container(class=archivero)
       div.d-flex.flex-row.mt-3
         div

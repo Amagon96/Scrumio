@@ -70,7 +70,7 @@ function update(request, response, next) {
         objs: {}
       });
     }
-  });;
+  });
 });
 }
 

@@ -517,6 +517,10 @@ main{
 }
 .backlogs{
   margin-right: 10px;
+  h1{
+    font-weight: bold;
+    font-size: 18px;
+  }
   h3{
     font-size: 20px;
     font-weight: bold;
@@ -577,6 +581,14 @@ main{
     background-color: #fff1d0;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
     min-height: 80px;
+    text-align: left;
+    @include form-style();
+    input{
+      background-color: transparent;
+    }
+    input{
+
+    }
     i{
       color: #f57f17;
       position: relative;
@@ -652,6 +664,15 @@ main{
     @include cancel-modal-props();
     font-size: 18px;
   }
+}
+#slides-release{
+  h1{
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+#modalAddSprint{
+  @include form-style();
 }
 
 .side-modal {
