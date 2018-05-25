@@ -37,6 +37,11 @@ header {
     text-decoration: inherit;
     color: inherit;
     cursor: pointer; }
+  header .navbar-toggler {
+    display: none;
+    border: 2px solid black; }
+  header .navbar-collapse .nav-tabs .nav-item {
+    font-size: 20px !important; }
 
 body {
   background-color: #ededed !important; }
@@ -54,12 +59,23 @@ footer {
 main {
   padding-left: 10% !important;
   /* Same as the width of the sidenav */
-  font-size: 28px;
-  /* Increased text to enable scrolling */
   padding: 0px 10px;
   text-align: center; }
   main #home a {
     color: #f57f17; }
+  main #home p {
+    font-size: 30px; }
+  main #home .card-proyect {
+    display: inline-block;
+    background: linear-gradient(to right, #ff8f00, #ffb300);
+    color: white;
+    margin: 10px;
+    min-height: 250px;
+    min-width: 300px;
+    border-radius: 5px;
+    max-width: 250px;
+    max-height: 250px;
+    cursor: pointer; }
 
 .margin-sidemenu {
   margin-left: 150px;
@@ -152,28 +168,28 @@ main {
     font-size: 14px; }
   #profile .profesional table td {
     font-size: 14px; }
-    #profile .profesional table td button {
-      border-radius: 7px;
-      background-color: #ffffff;
-      border: solid 3px #f57f17;
-      font-size: 13px;
-      color: #f57f17;
-      padding-bottom: 0px;
-      padding-top: 0px; }
     #profile .profesional table td i {
       color: #f57f17;
       font-size: 25px;
       cursor: pointer; }
+  #profile .profesional table button {
+    border-radius: 7px;
+    background-color: #ffffff;
+    border: solid 3px #f57f17;
+    font-size: 13px;
+    color: #f57f17;
+    padding-bottom: 0px;
+    padding-top: 0px; }
 
 #profile .wrapper {
   position: relative;
   top: 10px;
   width: 50%;
-  min-width: 250px;
+  min-width: 190px;
   border-radius: 10px;
   background-color: #e4e4e4 !important; }
   #profile .wrapper img {
-    min-width: 220px;
+    min-width: 190px;
     display: block;
     width: 100%; }
 
@@ -388,7 +404,8 @@ main {
 #proyectos .titles i {
   color: #f57f17;
   position: initial;
-  border-color: transparent; }
+  border-color: transparent;
+  font-size: 30px; }
 
 #proyectos .titles span {
   font-size: 14px;
@@ -452,6 +469,28 @@ main {
     color: #4a4a4a;
     margin-bottom: 0px; }
 
+#projects h2 {
+  font-size: 30px;
+  font-weight: bold; }
+
+#projects .container {
+  border-radius: 10px;
+  background-color: #ffffff; }
+  #projects .container table thead th {
+    font-size: 14px;
+    font-weight: bold;
+    border: none; }
+  #projects .container table thead tbody tr td {
+    font-size: 14px !important; }
+  #projects .container table button {
+    border-radius: 7px;
+    background-color: #ffffff;
+    border: solid 3px #f57f17;
+    font-size: 13px;
+    color: #f57f17;
+    padding-bottom: 0px;
+    padding-top: 0px; }
+
 .fp-slidesContainer {
   overflow-y: auto  !important;
   padding-bottom: 10%;
@@ -485,6 +524,9 @@ main {
 
 .backlogs {
   margin-right: 10px; }
+  .backlogs h1 {
+    font-weight: bold;
+    font-size: 18px; }
   .backlogs h3 {
     font-size: 20px;
     font-weight: bold; }
@@ -500,16 +542,57 @@ main {
       font-size: 16px;
       font-weight: normal;
       color: #f57f17; }
+    .backlogs .backlog #productBacklog, .backlogs .backlog #releaseBacklog {
+      min-height: 200px; }
+    .backlogs .backlog .card {
+      border-radius: 5px;
+      background-color: #e4e4e4;
+      border: solid 1px rgba(151, 151, 151, 0.12);
+      cursor: move; }
+      .backlogs .backlog .card div {
+        text-align: left; }
+        .backlogs .backlog .card div span {
+          color: #ffffff;
+          font-size: 12px;
+          background-color: #f5a623; }
+        .backlogs .backlog .card div .validate {
+          background-color: #449c48; }
+        .backlogs .backlog .card div p {
+          font-size: 12px; }
+        .backlogs .backlog .card div h6 {
+          font-size: 14px;
+          font-weight: bold; }
+        .backlogs .backlog .card div a {
+          font-size: 12px;
+          font-weight: 600;
+          color: #ffa726; }
+        .backlogs .backlog .card div:last-of-type {
+          border-top: solid 1px #8F8C88; }
   .backlogs .header {
     border-radius: 10px 10px 0px 0px;
     background-color: #fff1d0;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
-    min-height: 80px; }
+    min-height: 80px;
+    text-align: left; }
+    .backlogs .header label {
+      font-size: 13px;
+      font-weight: bold; }
+    .backlogs .header .form-control {
+      border: none;
+      border-bottom: 2px solid #f57f17;
+      border-radius: 0px;
+      font-size: 13px;
+      color: #4a4a4a; }
+      .backlogs .header .form-control:focus {
+        box-shadow: none; }
+    .backlogs .header input {
+      background-color: transparent; }
     .backlogs .header i {
       color: #f57f17;
       position: relative;
       top: 60px;
-      font-size: 40px; }
+      font-size: 40px;
+      cursor: pointer; }
   .backlogs .config div {
     border-radius: 10px;
     background-color: #ffffff; }
@@ -523,7 +606,8 @@ main {
     .backlogs .config div i {
       color: #f57f17;
       position: initial;
-      border-color: transparent; }
+      border-color: transparent;
+      font-size: 30px; }
     .backlogs .config div a {
       font-size: 16px;
       font-weight: normal;
@@ -531,6 +615,29 @@ main {
     .backlogs .config div p {
       font-size: 18px;
       font-weight: normal; }
+
+.card {
+  border-radius: 5px;
+  background-color: #e4e4e4;
+  border: solid 1px rgba(151, 151, 151, 0.12);
+  cursor: move; }
+  .card div {
+    text-align: left; }
+    .card div span {
+      color: #ffffff;
+      font-size: 12px;
+      background-color: #f5a623; }
+    .card div p {
+      font-size: 12px; }
+    .card div h6 {
+      font-size: 14px;
+      font-weight: bold; }
+    .card div a {
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffa726; }
+    .card div:last-of-type {
+      border-top: solid 1px #8F8C88; }
 
 #modalDeleteTeam .closeModal {
   background: none;
@@ -543,6 +650,23 @@ main {
   font-size: 13px;
   font-weight: bold;
   font-size: 18px; }
+
+#slides-release h1 {
+  font-size: 18px;
+  font-weight: bold; }
+
+#modalAddSprint label {
+  font-size: 13px;
+  font-weight: bold; }
+
+#modalAddSprint .form-control {
+  border: none;
+  border-bottom: 2px solid #f57f17;
+  border-radius: 0px;
+  font-size: 13px;
+  color: #4a4a4a; }
+  #modalAddSprint .form-control:focus {
+    box-shadow: none; }
 
 .side-modal {
   height: 100%;
@@ -616,8 +740,91 @@ main {
   opacity: 0;
   transition: opacity 1s; }
 
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80); }
+
+.gu-hide {
+  display: none !important; }
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important; }
+
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20); }
+
+@media screen and (max-width: 1135px) {
+  header .form-control {
+    width: 350px !important; } }
+
+@media screen and (max-width: 1022px) {
+  header .form-control {
+    width: 300px !important; } }
+
+@media screen and (max-width: 970px) {
+  header .form-control {
+    width: 100% !important; } }
+
+@media screen and (max-width: 1283px) {
+  main {
+    padding-left: 12% !important; } }
+
+@media screen and (max-width: 1117px) {
+  main {
+    padding-left: 16% !important; } }
+
+@media screen and (max-width: 1090px) {
+  .data-proyect {
+    margin-left: 7% !important; } }
+
+@media screen and (max-width: 990px) {
+  .sidenav {
+    display: none; }
+  .margin-sidemenu {
+    margin-left: 0px; }
+  .img-project {
+    right: 25%; }
+  .navbar-toggler {
+    display: inline-block !important; } }
+
+@media screen and (max-width: 768px) {
+  .data .wrapper {
+    right: 0%;
+    margin-bottom: 5%;
+    margin-left: 23.5% !important; } }
+
+@media screen and (max-width: 767px) {
+  #profile .profesional {
+    margin-left: 0px !important; } }
+
+@media screen and (max-width: 575px) {
+  header form.mr-auto {
+    margin-right: 0px !important;
+    margin-top: 4% !important; } }
+
+@media screen and (max-width: 515px) {
+  .table-projects td, .table-projects th {
+    padding: .3rem !important; } }
+
 @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 15px; }
   .sidenav a {
     font-size: 18px; } }
+
+@media screen and (max-width: 440px) {
+  .data .wrapper {
+    margin-left: 20% !important; } }
+
+@media screen and (max-width: 382px) {
+  .data .wrapper {
+    margin-left: 10% !important; } }

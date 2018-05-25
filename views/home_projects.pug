@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  main
+    div.container#home
+      if message != undefined
+        div.row
+          div#note.alert.alert-danger.col #{message}
+      if projects.length <= 0
+        img(src="images/empty_state_proyect.png").img-fluid
+        p Parece que está algo vacio por aqui, por qué no empezamos creando un <a class="modalProyecto" href="#">proyecto</a>.
+      else
+        div.d-flex.flex-wrap
+          each val in projects
+            a(href="dashboard/"+val._id)
+              div.card-proyect(data-id=val._id)
+                p #{val.nombre}
+                p #{val.product_owner}
+                p #{val.date_deployed}
+  
+block header
+  header.navbar.sticky-top.d-flex
+    form.form-inline.mr-auto
+      <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+    div.mr-4
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
+      a(href="/profile")
+        img(src="images/leader.png").img-profile
+    div.d-inline-block.mr-4
+      a(href="/profile")
+        p #{userName.name}
+        p Perfil

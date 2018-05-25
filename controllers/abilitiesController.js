@@ -10,7 +10,7 @@ function create(request, response, next) {
   const name = request.body.name;
   const type = request.body.type;
   const user_id = request.user._id;
-
+  console.log(request.params.project_id);
   let ability = new Ability();
   ability.name = name;
   ability.user_id = user_id;
@@ -30,7 +30,7 @@ function create(request, response, next) {
           abilities_db = null;
         }else{
           abilities_db = docs;
-          response.redirect('/profile');
+          response.redirect('/profile/'+request.params.project_id);
         }
       });
     }

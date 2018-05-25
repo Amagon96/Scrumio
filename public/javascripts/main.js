@@ -7,7 +7,7 @@ $(document).ready(() =>{
     $("#overlay").css("opacity","0.9");
   });
 
-  $("#openSideModal").click(()=>{
+  $(".openSideModal").click(()=>{
     $("#mySidenav").width("521px");
     $("#mySidenav").css("overflow-y","visible");
     $("#overlay").width("100%");
@@ -21,6 +21,7 @@ $(document).ready(() =>{
   });
 
   var dialog;
+
   $("#addTeam").click(()=>{
     body = `<div id="modalAddTeam">
               <h4>Crear Nuevo Equipo</h4>
@@ -45,12 +46,14 @@ $(document).ready(() =>{
   });
 
   $("#addMember").click(()=>{
+      email = $(this).attr("data-email");
+      console.log(email);
     body = `
     <div id="modalAddMembers">
       <h4>Agregar Miembro</h4>
       <p>Agrega los correos de tus miembros. Mandaremos
       una solicitud por correo para que se unan a tu equipo de trabajo.</p>
-      <form method="POST" action="/members">
+      <form method="POST" action="/email/${email}">
         <div class="form-row">
           <div class="col">
             <label>Email</label>
@@ -77,10 +80,12 @@ $(document).ready(() =>{
     })
   });
 
-  $("#addAbility").click(()=>{
+  $("#addAbility").click(function(){
+    project_id = $(this).attr("data-id");
+    console.log(project_id);
     body = `<div id="modalAddAbility">
               <h4>Crear Nueva Habilidad</h4>
-              <form method='POST' action='/abilities'>
+              <form method='POST' action='/abilities/${project_id}'>
                 <div class="form-group">
                   <label>Nombre</label>
                   <input name="name" id="createTeam" type="text" placeholder="Escribe el nombre de tu Habilidad" class="form-control"/>
@@ -239,7 +244,7 @@ $(document).ready(() =>{
         }
 	});
 
-  $("#modalProyecto").click(function(){
+  $(".modalProyecto").click(function(){
     body = `<div id="modalAddAbility">
               <h4>Crear Nuevo Proyecto</h4>
               <form method='POST' action='/projects'>
@@ -276,6 +281,107 @@ $(document).ready(() =>{
       message: body,
       closeButton: true
     });
+  });
+
+  dragula([document.getElementById("productBacklog"), document.getElementById("releaseBacklog")],{
+    revertOnSpill: true
+  }).on('drop', function(el, target, source, sibling){
+    const backlog = $(target).attr("id");
+    const history_id = $(el).attr("data-id");
+    if(backlog == 'releaseBacklog'){
+      $(el).find(".status").text("Validado");
+      $(el).find(".status").parent().css("background-color", "#449c48");
+      $.ajax({
+        url: "/histories/update_state/"+history_id,
+        type: "PUT",
+        data:{
+          state: 'Validado'
+        }
+      }).done(function() {
+          $.toast("Historia Actualizada :)");
+        })
+        .fail(function(err) {
+          console.log(err);
+          $.toast("Historia no Actualizada :/");
+        })
+        .always(function() {
+        });
+    }else if (backlog == "productBacklog"){
+      $(el).find(".status").text("En Validación");
+      $(el).find(".status").parent().css("background-color", "#f5a623");
+      $.ajax({
+        url: "/histories/update_state/"+history_id,
+        type: "PUT",
+        data:{
+          state: 'En Validación'
+        }
+      }).done(function() {
+          $.toast("Historia Actualizada :)");
+        })
+        .fail(function(err) {
+          $.toast("Historia no Actualizada :/");
+        })
+        .always(function() {
+        });
+    }
+    if($(target).children().length == 1){
+      $(target).siblings().remove();
+    }
+    if($(source).children().length == 0){
+      $(source).parent().prepend(`<div class="pt-5 empty_state"><img src="../../images/reader.png" class="img-fluid"/>
+                          <p>Para comenzar a organizar tu proyecto, empecemos a crear las <a href="#" class="openSideModal">tareas</a></p>
+                        </div>`);
+    }
+  });
+
+
+  $('#slides-release').slick({
+     slidesToShow: 1,
+  });
+
+  $(".addSprint").click(function(){
+    var project_id = $(this).attr("data-id");
+    body = `<div id="modalAddSprint">
+              <form action="/sprints/${project_id}" method='POST'>
+                <div class="form-group">
+                  <label>Numero de Spring</label>
+                  <input name="num_spring" id="numSpring" type="number" placeholder="Escoge el numero de tu Spring" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label>Fecha de Inicio</label>
+                  <input name="start_date" id="startDate" type="date" placeholder="Selecciona la fecha de Inicio" class="form-control"/>
+                </div>
+                <div class="form-group">
+                  <label>Fecha de Entrega</label>
+                  <input name="end_date" id="endDate" type="date" placeholder="Selecciona la fecha de Entrega" class="form-control"/>
+                </div>
+                <div class="float-right">
+                  <button type="button" class="closeModal">Cancelar</button>
+                  <button id='saveProyect' type="submit" class='btn btnGuardar'>Guardar</button>
+                </div>
+              </form>
+            </div>`;
+
+    dialog = bootbox.dialog({
+      message: body,
+      closeButton: true
+    });
+  });
+
+  var array = [];
+  var slides =  $("#slides-release").find("div.release");
+  var drops = [];
+  drops.push(document.getElementById('createReleaseBacklog'));
+  slides.each(function(index, item){
+    var id = $(item).attr("id");
+    if(id != '')
+      array.push(id);
+  });
+  for (var i = 0; i < array.length; i++) {
+    drops.push(document.getElementById(array[i]));
+  }
+  dragula(drops,{
+    revertOnSpill: true
   });
 
 });

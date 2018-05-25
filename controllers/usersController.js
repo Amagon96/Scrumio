@@ -5,16 +5,26 @@ const mongoose = require('mongoose');
 
 function index(request, response, next) {
   var abilities_db;
+  var user;
   Ability.find({"user_id": mongoose.Types.ObjectId(request.user._id)}, function(err, docs){
     if(err){
       abilities_db = null;
     }else{
       abilities_db = docs;
+      if(request.user.local.name){
+        user = request.user.local
+      }else if(request.user.google.name) {
+        user = request.user.google
+      }else if(request.user.facebook.name) {
+        user = request.user.facebook
+      }
+      console.log(request.params.project_id);
       response.render('profile', {
         title: "Profile",
         user_id: request.user._id,
-        userName: request.user.local,
-        abilities: abilities_db
+        userName: user,
+        abilities: abilities_db,
+        project_id: request.params.project_id
       });
     }
   });
@@ -33,9 +43,19 @@ function update(request, response, next) {
   User.findOne({
     _id: mongoose.Types.ObjectId(request.params.id)
   }, function (err, doc){
-  doc.local.name = name;
-  doc.local.email = email;
-  doc.local.birthday = birthday;
+    if(request.user.local.name){
+      doc.local.name = name;
+      doc.local.email = email;
+      doc.local.birthday = birthday;
+    }else if(request.user.google.name) {
+      doc.google.name = name;
+      doc.google.email = email;
+      doc.google.birthday = birthday;
+    }else if(request.user.facebook.name) {
+      doc.facebook.name = name;
+      doc.facebook.email = email;
+      doc.facebook.birthday = birthday;
+    }
   doc.save((err, obj) => {
     if (err) {
       response.json({
@@ -50,14 +70,13 @@ function update(request, response, next) {
         objs: {}
       });
     }
-  });;
+  });
 });
 }
 
 function remove(request, response, next) {
 
 }
-
 module.exports = {
   index,
   create,

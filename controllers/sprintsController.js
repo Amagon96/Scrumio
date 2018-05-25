@@ -54,29 +54,54 @@ function findOne (request, response, next){
 }
 
 function create(request, response, next){
-    const newSprint = new Sprint(request.body);
+    // const newSprint = new Sprint(request.body);
+    //
+    // console.log('New Sprint ',newSprint);
+    // if(request.body.start_date == ''){
+    //     newSprint.start_date = Date.now();
+    // }
+    // newSprint.daysLeft = daysLeft(newSprint.start_date, newSprint.end_date)
+    //
+    // newSprint.save((err, sprint)=>{
+    //     if (err) {
+    //         response.json({
+    //             err: true,
+    //             message: 'No se pudo guardar el Sprint',
+    //             objs: err
+    //         });
+    //     }else{
+    //         response.json({
+    //             err: false,
+    //             message:'Sprint Guardado',
+    //             objs: sprint
+    //         });
+    //     }
+    // });
+    var d = new Date();
+    const number = request.body.num_spring;
+    const start_date = request.body.start_date
+    const end_date = request.body.end_date;
+    const project_id = request.params.project_id;
 
-    console.log('New Sprint ',newSprint);
-    if(request.body.start_date == ''){
-        newSprint.start_date = Date.now();
-    }
-    newSprint.daysLeft = daysLeft(newSprint.start_date, newSprint.end_date)
+    let sprint = new Sprint();
 
-    newSprint.save((err, sprint)=>{
-        if (err) {
-            response.json({
-                err: true,
-                message: 'No se pudo guardar el Sprint',
-                objs: err
-            });
-        }else{
-            response.json({
-                err: false,
-                message:'Sprint Guardado',
-                objs: sprint
-            });
-        }
-    });
+    sprint.sprintNumber = number;
+    sprint.end_date = end_date;
+    sprint.start_date = start_date;
+    sprint.project_id = project_id;
+
+    sprint.save((err, obj) => {
+      if (err) {
+        response.json({
+          error: true,
+          message: 'Sprint no Guardado',
+          objs: err
+        });
+      } else {
+        response.redirect('/dashboard/'+request.params.project_id+'#firstPage/slide2');
+      }
+    });;
+
 }
 
 function update(request, response, next){

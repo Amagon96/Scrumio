@@ -4,22 +4,23 @@ const History = require('../models/history');
 
 function create(req, res, next){
   const narrative = req.body.narrative;
-  const product_owner_id = req.user._id
-  const state = req.body.state;
+  const project_id = req.params.project_id
+  const creator_id = req.user._id
+  const state = "En Validación";
   const priority = req.body.priority;
   const size = req.body.size;
   const how = req.body.how;
-  const what_i_want = req.body.what_i_want;
-  const so_that = req.body.so_that;
+  const what_i_want = req.body.way;
+  const so_that = req.body.give_it;
   const criteria = req.body.criteria;
-  const since = req.body.since;
   const when = req.body.when;
-  const so = req.body.so;
+  const then = req.body.then;
 
   let history = new History();
 
   history.narrative = narrative;
-  history.product_owner_id = product_owner_id;
+  history.project_id = project_id;
+  history.creator_id = creator_id;
   history.state = state;
   history.priority = priority;
   history.size = size;
@@ -27,23 +28,18 @@ function create(req, res, next){
   history.what_i_want = what_i_want;
   history.so_that = so_that;
   history.criteria = criteria;
-  history.since = since;
+  history.since = then;
   history.when = when;
-  history.so = so;
 
   history.save((err, history)=>{
     if (err) {
       res.json({
         err: true,
         message: 'No se pudo guardar historia',
-        objs: {}
+        objs: err
       });
     }else{
-      res.json({
-        err: false,
-        message:'Historia guardada',
-        objs:history
-      });
+      res.redirect('/dashboard/'+req.params.project_id);
     }
   });
 }
@@ -84,25 +80,48 @@ function show(req, res, next){
   });
 }
 
+function update_state(request, response, next) {
+  const state = request.body.state;
+
+  History.update({_id: mongoose.Types.ObjectId(request.params.id)},
+             { $set: {'state': state }},
+             function(err, obj) {
+                if (err) {
+                  response.json({
+                    error: true,
+                    message: 'Habilidad no Guardada',
+                    objs: err
+                  });
+                } else {
+                  response.json({
+                    error: false,
+                    message: 'Habilidad Guardada',
+                    objs: obj
+                  });
+                }
+             });
+}
+
 function update(request, response, next) {
-  const narrative = req.body.narrative;
-  const product_owner_id = req.user._id
-  const state = req.body.state;
-  const priority = req.body.priority;
-  const size = req.body.size;
-  const how = req.body.how;
-  const what_i_want = req.body.what_i_want;
-  const so_that = req.body.so_that;
-  const criteria = req.body.criteria;
-  const since = req.body.since;
-  const when = req.body.when;
-  const so = req.body.so;
+  const narrative = request.body.narrative;
+  const project_id = request.params.project_id
+  const creator_id = request.user._id
+  const state = "En Validación";
+  const priority = request.body.priority;
+  const size = request.body.size;
+  const how = request.body.how;
+  const what_i_want = request.body.way;
+  const so_that = request.body.give_it;
+  const criteria = request.body.criteria;
+  const when = request.body.when;
+  const then = request.body.then;
 
   History.findOne({
     _id: mongoose.Types.ObjectId(request.params.id)
   }, function (err, history){
     history.narrative = narrative;
-    history.product_owner_id = product_owner_id;
+    history.project_id = project_id;
+    history.creator_id = creator_id;
     history.state = state;
     history.priority = priority;
     history.size = size;
@@ -110,24 +129,23 @@ function update(request, response, next) {
     history.what_i_want = what_i_want;
     history.so_that = so_that;
     history.criteria = criteria;
-    history.since = since;
+    history.since = then;
     history.when = when;
-    history.so = so;
-  doc.save((err, obj) => {
-    if (err) {
-      response.json({
-        error: true,
-        message: 'Habilidad no Guardada',
-        objs: err
-      });
-    } else {
-      response.json({
-        error: false,
-        message: 'Habilidad Guardada',
-        objs: obj
-      });
-    }
-  });;
+    history.save((err, obj) => {
+      if (err) {
+        response.json({
+          error: true,
+          message: 'Habilidad no Guardada',
+          objs: err
+        });
+      } else {
+        response.json({
+          error: false,
+          message: 'Habilidad Guardada',
+          objs: obj
+        });
+      }
+    });
 });
 }
 
@@ -164,5 +182,6 @@ module.exports = {
   index,
   show,
   update,
-  remove
+  remove,
+  update_state
 }

@@ -1,29 +1,34 @@
 extends layout
 
 block header
-  header.navbar.sticky-top.margin-sidemenu.d-flex
+  header.navbar.sticky-top.margin-sidemenu.d-flex.justify-content-center
+    div
+      button(class="btn navbar-toggler mr-2", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        i.fa.fa-bars
     form.form-inline.mr-auto
-      <input class="form-control mr-sm-2" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+      div.form-group
+        <input class="form-control" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
     div.mr-4
-      button.btn.btn-createProy.mr-3 Nuevo Proyecto
-      img(src="images/leader.png").img-profile
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
+      img(src="../images/leader.png").img-profile
     div.d-inline-block.mr-4
       p #{userName.name}
       p Perfil
+    #navbarSupportedContent.collapse.navbar-collapse
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link.send-active(href='/home_projects') Home
+        a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
       
 block sidemenu
   div.sidenav
-    img(src="images/logo.png")
+    img(src="../images/logo.png")
     div.menu.mt-5
       div.nav.nav-tabs(role='tablist')
-        a.nav-item.nav-link.send-active(href='/dashboardhome') Home
-        a.nav-item.nav-link.send-active(href='/dashboardproyectos') Proyectos
-        a.nav-item.nav-link.send-active(href='/dashboardarchivero') Archivero
-        a.nav-item.nav-link.send-active(href='/dashboardequipos') Equipos
-        a.nav-item.nav-link.send-active(href='/dashboardmiembros') Miembros
+        a.nav-item.nav-link.send-active(href='/home_projects') Home
+        a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
-          img(src="images/logout.png").img-profile
+          img(src="../images/logout.png").img-profile
 
 block content
   main.container-fluid
@@ -31,9 +36,9 @@ block content
       div.row
         div.col-md-4.personal.mt-3
           div.wrapper.mx-auto.mt-3
-            img(src="images/osito.png").img-fluid
+            img(src="../images/osito.png").img-fluid
             div.overlay <i class="fa fa-camera"></i> Subir Foto
-          div(data-id=user_id)
+          div(data-id=user_id).mt-2
             div.form-group
               label(for='name') Nombre
               input#name.form-control(type='text', value=userName.name)
@@ -50,7 +55,7 @@ block content
             div.pt-3
               h4 Habilidades
             div.ml-auto
-              button#addAbility.btn AGREGAR
+              button#addAbility.btn(data-id=project_id) AGREGAR
           div.row
             div.pl-3
               p Cuentanos … ¿En qué eres bueno?
@@ -73,9 +78,9 @@ block content
                       td 
                         button.btn.deleteAbility ELIMINAR
               div.mt-3.mx-auto.nonAbility.d-none
-                img(src="images/panzon.png")
+                img(src="../images/panzon.png")
                 p Agregar tus habilidades nos ayudan a saber en que área puedes destacar!
             else
               div.mt-3.mx-auto
-                img(src="images/panzon.png")
+                img(src="../images/panzon.png")
                 p Agregar tus habilidades nos ayudan a saber en que área puedes destacar!

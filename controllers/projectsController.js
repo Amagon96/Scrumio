@@ -3,26 +3,27 @@ const Project = require('../models/project');
 const mongoose = require('mongoose');
 
 function index(req, res, next){
-  const page = req.params.page ? req.params.page : 1;
-  // Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
-  //
-  // });
-
-  Project.paginate({"product_owner_id" : req.user._id}, {
-    page: page,
-    limit:3
-  }, (err, objs)=>{
+  var user;
+  Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
       res.json({
         err: true,
         message: 'No se puedieron extraer los proyectos',
-        objs: {}
+        objs: err
       });
     }else{
-      res.json({
-        err: false,
-        message:'Lista de proyectos',
-        objs: objs
+      if(req.user.local.name){
+        user = req.user.local
+      }else if(req.user.google.name) {
+        user = req.user.google
+      }else if(req.user.facebook.name) {
+        user = req.user.facebook
+      }
+      res.render('projects', {
+        title: "Proyectos",
+        userName: user,
+        projects: objs,
+        project_id: req.params.project_id
       });
     }
   });
@@ -53,10 +54,46 @@ function create(req, res, next){
         objs: err
       });
     }else{
+      Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
+        if(err){
+          res.json({
+            err: true,
+            message: 'No se puedieron extraer los proyectos',
+            objs: err
+          });
+        }else{
+          res.render('home_projects', {
+            title: "Proyectos",
+            userName: req.user.local,
+            projects: objs
+          });
+        }
+      });
+    }
+  });
+}
+
+function home(req, res, next){
+  var user;
+  Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
+    if(err){
       res.json({
-        err: false,
-        message:'Proyecto Guardado',
-        objs: proyect
+        err: true,
+        message: 'No se puedieron extraer los proyectos',
+        objs: err
+      });
+    }else{
+      if(req.user.local.name){
+        user = req.user.local
+      }else if(req.user.google.name) {
+        user = req.user.google
+      }else if(req.user.facebook.name) {
+        user = req.user.facebook
+      }
+      res.render('home_projects', {
+        title: "Proyectos",
+        userName: user,
+        projects: objs
       });
     }
   });
@@ -97,16 +134,20 @@ function update(req, res, next){
   });
 }
 
-function show(req, res, next){
+function findByOne(req, res, next){
   const id = req.params.id;
   Project.findOne({
     _id:id
   }, (err, obj)=>{
-    res.json({
-      err: true,
-      message : 'Proyecto',
-      obj: obj
-    });
+    if(err){
+      res.json({
+        err: true,
+        message : 'Proyecto',
+        obj: err
+      });
+    }else{
+      res.redirect('dashboard');
+    }
   });
 }
 
@@ -140,8 +181,9 @@ function remove(req, res, next){
 
 module.exports = {
   index,
+  home,
   create,
   update,
-  show,
+  findByOne,
   remove
 }

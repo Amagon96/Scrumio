@@ -3,7 +3,7 @@ const securityMiddleware = require('../middlewares/securityMiddleware');
 
 module.exports = function(app, passport) {
 
-  app.post('/abilities', securityMiddleware.isLoggedIn, abilitiesController.create);
+  app.post('/abilities/:project_id', securityMiddleware.isLoggedIn, abilitiesController.create);
 
   app.delete('/abilities/:id', securityMiddleware.isLoggedIn, abilitiesController.remove);
 

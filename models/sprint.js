@@ -8,12 +8,12 @@ const sprintSchema = Schema({
         required    : true
     },
     start_date      : {
-        type        : Date,
+        type        : String,
         default     : Date.now,
         Required    : true
     },
     end_date         : {
-        type        : Date,
+        type        : String,
         Required    : true
     },
     goals           : {
@@ -23,7 +23,8 @@ const sprintSchema = Schema({
         type        : Schema.Types.ObjectId,
         ref         : 'Task'
     }],
-    daysLeft        : Number
+    daysLeft        : Number,
+    project_id      : Schema.Types.ObjectId,
 });
 
 sprintSchema.plugin(mongoosePaginate);
