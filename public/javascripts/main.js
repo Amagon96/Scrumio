@@ -44,6 +44,39 @@ $(document).ready(() =>{
     });
   });
 
+  $("#addMember").click(()=>{
+    body = `
+    <div id="modalAddMembers">
+      <h4>Agregar Miembro</h4>
+      <p>Agrega los correos de tus miembros. Mandaremos
+      una solicitud por correo para que se unan a tu equipo de trabajo.</p>
+      <form method="POST" action="/members">
+        <div class="form-row">
+          <div class="col">
+            <label>Email</label>
+            <input id="addMember" class="form-control" name="email" type="text" placeholder="mrocha@gmail.com" />
+          </div>
+          <button id="enviarMembers" type="submit">Enviar</button>
+        </div>
+      </form>
+      <div class="float-right">
+        <button class="closeModal">Cancelar</button>
+      </div>
+      <h5>Miembros agregados</h5>
+      <div>
+      </div>
+      <div class="float-right">
+        <button type="button" class="closeModal">Cancelar</button>
+        <button type="submit" class='btn btnGuardar'>Guardar</button>
+      </div>
+    </div>
+    `;
+    dialog = bootbox.dialog({
+      message: body,
+      closeButton: true
+    })
+  });
+
   $("#addAbility").click(()=>{
     body = `<div id="modalAddAbility">
               <h4>Crear Nueva Habilidad</h4>
