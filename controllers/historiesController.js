@@ -10,8 +10,9 @@ function create(req, res, next){
   const priority = req.body.priority;
   const size = req.body.size;
   const how = req.body.how;
-  const what_i_want = req.body.way;
-  const so_that = req.body.give_it;
+  const what_i_want = req.body.what_i_want;
+  const so_that = req.body.way;
+  const give_it = req.body.give_it;
   const criteria = req.body.criteria;
   const when = req.body.when;
   const then = req.body.then;
@@ -27,6 +28,7 @@ function create(req, res, next){
   history.how = how;
   history.what_i_want = what_i_want;
   history.so_that = so_that;
+  history.give_it = give_it;
   history.criteria = criteria;
   history.since = then;
   history.when = when;
@@ -176,6 +178,85 @@ function remove(req, res, next){
   }
 }
 
+function update_sprint(request, response, next) {
+  const sprint_id = request.params.sprint_id
+  const history_id = request.params.history_id
+
+  History.findOne({
+    _id: mongoose.Types.ObjectId(history_id)
+  }, function (err, history){
+    history.sprint_id = sprint_id;
+    history.save((err, obj) => {
+      if (err) {
+        response.json({
+          error: true,
+          message: 'Historia no Guardada',
+          objs: err
+        });
+      } else {
+        response.json({
+          error: true,
+          message: 'Historia Guardada :)',
+          objs: err
+        });
+      }
+    });
+});
+}
+
+function remove_sprint(request, response, next) {
+  const history_id = request.params.history_id
+
+  History.findOne({
+    _id: mongoose.Types.ObjectId(history_id)
+  }, function (err, history){
+    history.sprint_id = undefined;
+    history.save((err, obj) => {
+      if (err) {
+        response.json({
+          error: true,
+          message: 'Historia no Guardada',
+          objs: err
+        });
+      } else {
+        response.json({
+          error: false,
+          message: 'Historia agregada correctamente :)',
+          objs: obj
+        });
+      }
+    });
+  });
+}
+
+function update_time(request, response, next) {
+  const history_id = request.params.history_id;
+  const time_estimate = request.body.time_estimate;
+  const time_did = {
+                    time : request.body.time_did,
+                    date : request.body.time_did_date
+                  };
+
+  History.findOne({
+    _id: mongoose.Types.ObjectId(history_id)
+  }, function (err, history){
+
+    history.time_estimate = time_estimate;
+    history.time_did = time_did;
+
+    history.save((err, obj) => {
+      if (err) {
+        response.json({
+          error: true,
+          message: 'Historia no Guardada',
+          objs: err
+        });
+      } else {
+        response.redirect('/dashboard/'+request.params.project_id);
+      }
+    });
+  });
+}
 
 module.exports = {
   create,
@@ -183,5 +264,8 @@ module.exports = {
   show,
   update,
   remove,
-  update_state
+  update_state,
+  update_sprint,
+  update_time,
+  remove_sprint
 }

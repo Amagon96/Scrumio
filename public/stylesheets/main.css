@@ -480,6 +480,103 @@ main {
       background-color: white;
       padding: 0 5px; }
 
+#modalDetailHistory h1 {
+  font-size: 20px;
+  font-weight: bold; }
+
+#modalDetailHistory h3 {
+  font-size: 14px;
+  font-weight: bold; }
+
+#modalDetailHistory h5 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #f57f17; }
+
+#modalDetailHistory p {
+  font-size: 13px; }
+
+#modalDetailHistory button {
+  border-radius: 7px;
+  background-color: #ffffff;
+  border: solid 3px #f57f17;
+  font-size: 13px;
+  color: #f57f17;
+  padding-bottom: 0px;
+  padding-top: 0px; }
+
+#modalDetailHistory .closeModal {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 13px;
+  font-weight: bold; }
+
+#modalDetailHistory form h2 {
+  font-size: 16px;
+  font-weight: bold; }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2c3e50;
+  background-image: none; }
+
+/* Custom Select */
+.select {
+  position: relative;
+  display: block;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #2c3e50;
+  overflow: hidden;
+  border-radius: .25em; }
+
+select {
+  width: 100%;
+  height: 80%;
+  margin: 0;
+  padding: 0 0 0 .5em;
+  color: #fff;
+  cursor: pointer; }
+
+select::-ms-expand {
+  display: none; }
+
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 1em;
+  background: #34495e;
+  pointer-events: none; }
+
+/* Transition */
+.select:hover::after {
+  color: #f39c12; }
+
+.select::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease; }
+
+.medium {
+  margin: 0 auto;
+  width: 90% !important; }
+
 .backlogs {
   margin-right: 10px; }
   .backlogs h1 {
@@ -530,8 +627,7 @@ main {
     border-radius: 10px 10px 0px 0px;
     background-color: #fff1d0;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.12);
-    min-height: 80px;
-    text-align: left; }
+    min-height: 80px; }
     .backlogs .header label {
       font-size: 13px;
       font-weight: bold; }
@@ -612,6 +708,36 @@ main {
 #slides-release h1 {
   font-size: 18px;
   font-weight: bold; }
+
+#slides-release .header .dropdown {
+  position: relative;
+  display: inline-block;
+  left: 30%; }
+
+#slides-release .header .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 100px;
+  z-index: 1;
+  right: 5px;
+  top: 25px; }
+
+#slides-release .header i {
+  position: initial;
+  font-size: 30px;
+  color: black; }
+
+#slides-release .header a {
+  text-decoration: none;
+  font-size: 15px;
+  color: #4a4a4a; }
+
+#slides-release .header .dropdown-content:hover {
+  background-color: #e4e4e4; }
+
+#slides-release .header .dropdown:hover .dropdown-content {
+  display: block; }
 
 #modalAddSprint label {
   font-size: 13px;

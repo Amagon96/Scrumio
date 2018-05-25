@@ -256,6 +256,8 @@ $(document).ready(() =>{
     if(backlog == 'releaseBacklog'){
       $(el).find(".status").text("Validado");
       $(el).find(".status").parent().css("background-color", "#449c48");
+      var copy_el = el.cloneNode(true);
+      $(copy_el).removeClass("gu-transit");
       $.ajax({
         url: "/histories/update_state/"+history_id,
         type: "PUT",
@@ -264,6 +266,7 @@ $(document).ready(() =>{
         }
       }).done(function() {
           $.toast("Historia Actualizada :)");
+          $("#createReleaseBacklog").append(copy_el);
         })
         .fail(function(err) {
           console.log(err);
@@ -288,6 +291,7 @@ $(document).ready(() =>{
         })
         .always(function() {
         });
+      $("#createReleaseBacklog div[data-id='"+$(el).attr("data-id")+"']").remove();
     }
     if($(target).children().length == 1){
       $(target).siblings().remove();
@@ -347,6 +351,130 @@ $(document).ready(() =>{
   }
   dragula(drops,{
     revertOnSpill: true
+  }).on('drop', function(el, target, source, sibling){
+    var sprint_id = $(target).attr("data-sprint_id");
+    var history_id = $(el).attr("data-id");
+    if($(target).attr('class') == "backlog p-1 release"){
+      $.ajax({
+        url: "/histories/"+history_id+"/sprints/"+sprint_id,
+        type: "PUT"
+      }).done(function() {
+          $.toast("Historia Actualizada :)");
+        })
+        .fail(function(err) {
+          $.toast("Historia no Actualizada :/");
+        })
+        .always(function() {
+        });
+
+    }else{
+      $.ajax({
+        url: "/histories/"+history_id+"/sprints/",
+        type: "DELETE"
+      }).done(function() {
+          $.toast("Historia Actualizada :)");
+        })
+        .fail(function(err) {
+          $.toast("Historia no Actualizada :/");
+        })
+        .always(function() {
+        });
+    }
+
+  });
+
+  $(document).on("click", ".detail-history", function(){
+    var obj =  JSON.parse($(this).attr("data-obj"));
+    var time = obj.time_did == undefined ? "" : obj.time_did;
+    console.log(obj);
+    body = `<div id="modalDetailHistory">
+              <h1>Detalle de Tarea</h1>
+              <div class='row pt-3'>
+                <h3>Narrativa de la Historia</h3>
+              </div>
+              <div class='row'>
+                <div class="col-md-4">
+                  <h5>Narrativa de la historia</h5>
+                  <p>${obj.narrative}</p>
+                </div>
+                <div class="col-md-4">
+                  <h5>Tamaño</h5>
+                  <p>${obj.size}</p>
+                </div>
+                <div class="col-md-4">
+                  <h5>Prioridad</h5>
+                  <p>${obj.priority}</p>
+                </div>
+              </div>
+              <div class='row'>
+                <div class="col-md-6">
+                  <h5>Como</h5>
+                  <p>${obj.how}</p>
+                </div>
+                <div class="col-md-6">
+                  <h5>Quiero</h5>
+                  <p>${obj.what_i_want}</p>
+                </div>
+              </div>
+              <div class='row'>
+                <div class="col-md-12">
+                  <h5>De tal Manera</h5>
+                  <p>${obj.so_that}</p>
+                </div>
+              </div>
+              <div class='row'>
+                <h3>Criterios de Aceptación</h3>
+              </div>
+              <div class='row'>
+                <div class="col-md-12">
+                  <h5>Criterio de Aceptación</h5>
+                  <p>${obj.criteria}</p>
+                </div>
+              </div>
+              <div class='row'>
+                <div class="col-md-6">
+                  <h5>Dado</h5>
+                  <p>${obj.give_it}</p>
+                </div>
+                <div class="col-md-6">
+                  <h5>Cuando</h5>
+                  <p>${obj.when}</p>
+                </div>
+              </div>
+              <div class='row'>
+                <div class="col-md-12">
+                  <h5>Entonces</h5>
+                  <p>${obj.since}</p>
+                </div>
+              </div>
+              <form action="/histories/update_time/${obj._id}/${obj.project_id}" method='POST'>
+                <div class='row'>
+                  <h2>Horas Estimadas</h2>
+                </div>
+                <div class="form-group">
+                  <input name='time_estimate' id="createTeam" type="number" placeholder="Estimacion de Horas" class="form-control" value='${obj.time_estimate}'/>
+                </div>
+                <div class='row'>
+                  <h2>Horas Realizadas</h2>
+                </div>
+                <div class="form-group">
+                  <input name='time_did' id="createTeam" type="number" placeholder="Horas hechas" class="form-control" value='${time.time}'/>
+                </div>
+                <div class="form-group">
+                  <input name='time_did_date' id="createTeam" type="date" placeholder="Fecha de entrega" class="form-control" value='${time.date}'/>
+                </div>
+                <div class="float-right mt-3">
+                  <button type="button" class="closeModal">Cancelar</button>
+                  <button id='updateHistory' type="submit" class='btn btnGuardar'>Guardar</button>
+                </div>
+              </form>
+            </div>`;
+
+    dialog = bootbox.dialog({
+      message: body,
+      closeButton: true,
+      size: "large"
+    });
   });
 
 });

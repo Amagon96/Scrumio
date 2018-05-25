@@ -6,6 +6,8 @@ module.exports = function(app, passport) {
 
 app.get('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.findOne);
 
+app.get('/sprints/:id/burndown/:project_id', securityMiddleware.isLoggedIn, sprintsController.burndown);
+
 app.get('/sprints/:page?', securityMiddleware.isLoggedIn, sprintsController.showAll);
 
 app.post('/sprints/:project_id', securityMiddleware.isLoggedIn, sprintsController.create);
@@ -13,7 +15,6 @@ app.post('/sprints/:project_id', securityMiddleware.isLoggedIn, sprintsControlle
 app.put('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.update);
 
 app.delete('/sprints/:id', securityMiddleware.isLoggedIn, sprintsController.remove);
-
 
 app.get('/sprints/:id/tasks/', securityMiddleware.isLoggedIn, tasksController.showSprintTasks);
 

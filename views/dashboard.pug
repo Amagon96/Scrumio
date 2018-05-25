@@ -93,11 +93,11 @@ block content
                           p #{val.so_that}
                         div.pl-3
                           a(href="#").mr-2 REVERSO DE TARJETA
-                          a(href="#") VER DETALLE DE TAREA
+                          a.detail-history(href="#", data-obj=val) VER DETALLE DE TAREA
             div.col-md-4
               h3 Release Backlog
               div.header
-              div.backlog
+              div.backlog.pb-2
                 if histories_validates.length == 0 
                   div.pt-5.empty_state
                     img(src="../../images/reader.png").img-fluid
@@ -117,7 +117,7 @@ block content
                         p #{val.so_that}
                       div.pl-3
                         a(href="#").mr-2 REVERSO DE TARJETA
-                        a(href="#") VER DETALLE DE TAREA
+                        a.detail-history(href="#", data-obj=val) VER DETALLE DE TAREA
             div.col-md-4.config.mb-5
               div.mt-4
                 h4 Configurar Release
@@ -143,21 +143,22 @@ block content
               div.header
               div.backlog.p-1#createReleaseBacklog
                 each val in histories_validates
-                  div.card.m-1(data-id=val._id)
-                    div.pl-3
-                      h6.d-inline-block Narrativa de la Historia
-                      span.float-right.pl-3.pr-3.validate
-                        strong.status #{val.state}
-                    div.pl-3
-                      p #{val.narrative}
-                    div.pl-3
-                      h6 Como
-                    div.pl-3
-                      p #{val.so_that}
-                    div.pl-1
-                      a(href="#").mr-2 REVERSO DE TARJETA
-                      a(href="#") VER DETALLE DE TAREA
-            div.col-md-4.ml-5
+                  if val.sprint_id == undefinded
+                    div.card.m-2(data-id=val._id)
+                      div.pl-3
+                        h6.d-inline-block Narrativa de la Historia
+                        span.float-right.pl-3.pr-3.validate
+                          strong.status #{val.state}
+                      div.pl-3
+                        p #{val.narrative}
+                      div.pl-3
+                        h6 Como
+                      div.pl-3
+                        p #{val.so_that}
+                      div.pl-1
+                        a(href="#").mr-2 REVERSO DE TARJETA
+                        a.detail-history(href="#", data-obj=val) VER DETALLE DE TAREA
+            div.col-md-5.ml-5
               div#slides-release(data-count-slides=sprints.length)
                 each val in sprints
                   div.pl-2
@@ -165,29 +166,28 @@ block content
                     div.header.pl-2
                       div
                         label(for='exampleInputEmail1') Fecha de Entrega
+                        div.dropdown
+                          i.fa.fa-ellipsis-v
+                          div.dropdown-content
+                            a(href='/sprints/'+val._id+'/burndown/'+project[0]._id) Burndown
                         input.form-control(type='date', placeholder='Enter email' value=val.end_date)
-                    div.backlog.p-1.release(id='release-drop'+val.sprintNumber)
-                //- div.pl-2
-                //-   h1 Release 
-                //-   div.header.pl-2
-                //-     div
-                //-       label(for='exampleInputEmail1') Fecha de Entrega
-                //-       input.form-control(type='date', placeholder='Enter email')
-                //-   div.backlog.p-1#release-drop0
-                //- div.pl-2
-                //-   h1 Release 
-                //-   div.header.pl-2
-                //-     div
-                //-       label(for='exampleInputEmail1') Fecha de Entrega
-                //-       input.form-control(type='date', placeholder='Enter email')
-                //-   div.backlog.p-1#release-drop1
-                //- div.pl-2
-                //-   h1 Release 
-                //-   div.header.pl-2
-                //-     div
-                //-       label(for='exampleInputEmail1') Fecha de Entrega
-                //-       input.form-control(type='date', placeholder='Enter email')
-                //-   div.backlog.p-1#release-drop2
+                    div.backlog.p-1.release(id='release-drop'+val.sprintNumber data-sprint_id=val._id)
+                      each val_card in histories_validates
+                        if val_card.sprint_id == val._id.toString()
+                          div.card.m-1(data-id=val_card._id)
+                            div.pl-3
+                              h6.d-inline-block Narrativa de la Historia
+                              span.float-right.pl-3.pr-3.validate
+                                strong.status #{val_card.state}
+                            div.pl-3
+                              p #{val_card.narrative}
+                            div.pl-3
+                              h6 Como
+                            div.pl-3
+                              p #{val_card.so_that}
+                            div.pl-1
+                              a(href="#").mr-2 REVERSO DE TARJETA
+                              a.detail-history(href="#", data-obj=val_card) VER DETALLE DE TAREA
     div#archivero.tab-pane.fade.container(class=archivero)
       div.d-flex.flex-row.mt-3
         div

@@ -1,5 +1,6 @@
 const express = require('express');
 const Sprint = require('../models/sprint');
+const History = require('../models/history');
 
 const mongoose = require('mongoose');
 
@@ -23,6 +24,38 @@ function showAll(request, response, next) {
             });
         }
     });
+}
+
+function burndown(request, response, next) {
+  var user;
+  const sprint_id = request.params.id;
+  if(request.user.local.name){
+    user = request.user.local
+  }else if(request.user.google.name) {
+    user = request.user.google
+  }else if(request.user.facebook.name) {
+    user = request.user.facebook
+  }
+
+  Sprint.findOne({ _id:  sprint_id}, function(err, sprint_db){
+    if (err) {
+      response.json({
+          error: true,
+          message: 'no se pudo extraer el sprint.',
+          objs: err
+      });
+    } else {
+      History.find({"sprint_id": mongoose.Types.ObjectId(sprint_id)}, function(err, objs){
+        response.render('burndown', {
+          title: "Burndown",
+          userName: user,
+          project_id: request.params.project_id,
+          sprint : sprint_db,
+          histories: objs
+        });
+      });
+    }
+  });
 }
 
 function findOne (request, response, next){
@@ -312,5 +345,6 @@ module.exports = {
     showAll,
     findOne,
     update,
-    remove
+    remove,
+    burndown
 }

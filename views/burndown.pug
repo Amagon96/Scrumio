@@ -1,0 +1,37 @@
+extends layout
+
+block header
+  header.navbar.sticky-top.margin-sidemenu.d-flex.justify-content-center
+    div
+      button(class="btn navbar-toggler mr-2", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        i.fa.fa-bars
+    form.form-inline.mr-auto
+      div.form-group
+        <input class="form-control" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+    div.mr-4
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
+      img(src="../../../images/leader.png").img-profile
+    div.d-inline-block.mr-4
+      p #{userName.name}
+      p Perfil
+    #navbarSupportedContent.collapse.navbar-collapse
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link.send-active(href='/home_projects') Home
+        a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
+
+block sidemenu
+  div.sidenav
+    img(src="../../../images/logo.png")
+    div.menu.mt-5
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link.send-active(href='/home_projects') Home
+        a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
+      div.fixed-bottom.ml-5.mb-3
+        a(href="/logout").logout
+          img(src="../../../images/logout.png").img-profile
+
+block content
+  script(src='/javascripts/burndown.js')
+  main.container-fluid
+    div.container
+      canvas#myChart(data-sprint=sprint, data-histories=histories)
