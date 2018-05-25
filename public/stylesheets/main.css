@@ -263,7 +263,7 @@ main {
   font-size: 30px;
   font-weight: bold; }
 
-#equipos button, #miembros button {
+#equipos button, #miembros button, #enviarMembers {
   border-radius: 7px;
   background-color: #ffffff;
   border: solid 3px #f57f17;
@@ -318,6 +318,48 @@ main {
 
 #modalAddAbility select {
   border: solid 3px #f57f17; }
+
+#modalAddMembers label {
+  font-size: 13px;
+  font-weight: bold; }
+
+#modalAddMembers h4 {
+  width: 198px;
+  height: 27px;
+  font-family: OpenSans;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4a4a4a;
+}
+
+#modalAddMembers .closeModal {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#modalAddMembers .form-control {
+  border: none;
+  border-bottom: 2px solid #f57f17;
+  border-radius: 0px;
+  font-size: 13px;
+  color: #4a4a4a;
+}
+
+#modalAddMembers .form-control:focus {
+  box-shadow: none;
+}
 
 #modalAddTeam .choose-team {
   text-align: center; }
