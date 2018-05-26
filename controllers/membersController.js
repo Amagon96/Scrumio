@@ -34,32 +34,27 @@ function create(request, response, next) {
 
 function remove(request, response, next) {
   const id = request.params.id;
-  if (id) {
-    Member.remove({
-      _id: id
-    }, function(err, obj) {
-      if (err) {
-        response.json({
-          error: true,
-          message: 'Miembro no Eliminado.',
-          objs: err
-        });
-      } else {
-        response.json({
-          error: false,
-          message: 'Miembro Eliminado.',
-          objs: obj
-        });
-      }
-    });
-  } else {
-    response.json({
-      error: true,
-      message: 'Miembro no Existe',
-      objs: {}
-    });
-  }
+  console.log(id);
+  Member.remove({
+    _id: id
+  }, function(err, obj) {
+    if (err) {
+      console.log(err);
+      response.json({
+        error: true,
+        message: 'Miembro no Eliminado.',
+        objs: err
+      });
+    } else {
+      response.json({
+        error: false,
+        message: 'Miembro Eliminado.',
+        objs: obj
+      });
+    }
+  });
 }
+
 
 module.exports = {
   create,

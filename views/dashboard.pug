@@ -200,20 +200,35 @@ block content
         div
           h2 Listado de Equipos
         div.ml-auto 
-          button#addTeam.btn AGREGAR EQUIPO
+          button.addTeam.btn(data-members=members) AGREGAR EQUIPO
       div.mt-3.container-1
         img(src="../../images/snoppy.png").img-fluid
-        p Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos <a href="#">aqui</a>.
+        p Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos <a class='addTeam' href="#">aqui</a>.
     div#miembros.tab-pane.fade.container(class=miembros)
       div.d-flex.mt-3
         div
           h2 Listado de Miembros
         div.ml-auto 
-          button#addMember.btn AGREGAR MIEMBROS
+          button.addMember.btn(data-email=user.email, data-project_id=project[0]._id) AGREGAR MIEMBROS
       div.mt-3.container-1
-        img(src="../../images/abrazame.png").img-fluid
-        p Oh no! Parece que aún no tienes miembros! Registra algunos <a href="#">aqui</a>.
-  
+        if members.length == 0
+          img(src="../../images/abrazame.png").img-fluid
+          p Oh no! Parece que aún no tienes miembros! Registra algunos <a class='addMember' data-email='#{user.email}' data-project_id='{project[0]._id}' href="#">aqui</a>.
+        else
+          table.table.table-members
+            thead
+              tr
+                th(scope='col') Nombre
+                th(scope='col') Email
+                th(scope='col') 
+            tbody
+              each val in members
+                tr(id=val._id)
+                  td.abilityName #{val.name}
+                  td.abilityType #{val.email}
+                  td.abilityType 
+                    button.btn.delete-member(data-id=val._id) Eliminar
+                      
 block sidemenu
   div.sidenav
     img(src="../../images/logo.png")

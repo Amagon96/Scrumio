@@ -22,21 +22,45 @@ $(document).ready(() =>{
 
   var dialog;
 
-  $("#addTeam").click(()=>{
+  $(".addTeam").click(function(){
+    var members = $(this).data("members");
+    var body_list = [];
+    if (members.length == 0){
+      body_list = `<img src="/../../images/abrazame.png" class="img-fluid"/>
+        <p>Oh oh! Parece que aún no tienes miembros para armar tu equipo! Agrega unos desde la pestaña de miembros.</p>`;
+    }else{
+      members.forEach(function(item, index){
+        console.log(item);
+        body_list += `
+        <div class="form-row">
+          <div class='col-md-8'>
+            <label>${item.name}</label>
+          </div>
+          <div class='col-md-4'>
+          <label class="container-check">
+            <input type="checkbox" name="member" value='{"member_id": "${item._id}", "email": "${item.email}", "name": "${item.name}"}'>
+            <span class="checkmark"></span>
+          </label>
+          </div>
+        </div>`
+      });
+    }
     body = `<div id="modalAddTeam">
               <h4>Crear Nuevo Equipo</h4>
+              <form action='/teams/${members[0].project_id}' method='POST'>
               <div class="form-group">
                 <label>Nombre</label>
-                <input id="createTeam" type="text" placeholder="Escribe el nombre de tu proyecto" class="form-control"/>
+                <input name='name_project' type="text" placeholder="Escribe el nombre de tu proyecto" class="form-control"/>
               </div>
               <h5>Seleccionar Miembros</h5>
               <div class="choose-team">
-                <img src="images/abrazame.png" class="img-fluid"/>
-                <p>Oh oh! Parece que aún no tienes miembros para armar tu equipo! Agrega unos desde la pestaña de miembros o da clic <a href="#">aqui</a>.</p>
+                ${body_list}
               </div>
               <div class="float-right">
                 <button class="closeModal">Cancelar</button>
+                <button type="submit">Crear</button>
               </div>
+              </form>
             </div>`;
 
     dialog = bootbox.dialog({
@@ -45,32 +69,28 @@ $(document).ready(() =>{
     });
   });
 
-  $("#addMember").click(()=>{
-      email = $(this).attr("data-email");
+  $(".addMember").click(function(){
+      var email = $(this).attr("data-email");
+      var project_id = $(this).attr("data-project_id");
       console.log(email);
     body = `
     <div id="modalAddMembers">
       <h4>Agregar Miembro</h4>
       <p>Agrega los correos de tus miembros. Mandaremos
       una solicitud por correo para que se unan a tu equipo de trabajo.</p>
-      <form method="POST" action="/email/${email}">
+      <form method="POST" action="/email/${email}/project/${project_id}">
         <div class="form-row">
-          <div class="col">
+          <div class="col-md-8">
             <label>Email</label>
-            <input id="addMember" class="form-control" name="email" type="text" placeholder="mrocha@gmail.com" />
+            <input id="addMember" class="form-control" name="email" type="text" placeholder="ejemplo@gmail.com" />
           </div>
-          <button id="enviarMembers" type="submit">Enviar</button>
+          <div class='col-md-4 pl-5 pt-3'>
+            <button id="enviarMembers" type="submit">Enviar</button>
+          </div>
         </div>
       </form>
       <div class="float-right">
         <button class="closeModal">Cancelar</button>
-      </div>
-      <h5>Miembros agregados</h5>
-      <div>
-      </div>
-      <div class="float-right">
-        <button type="button" class="closeModal">Cancelar</button>
-        <button type="submit" class='btn btnGuardar'>Guardar</button>
       </div>
     </div>
     `;
@@ -511,5 +531,31 @@ $(document).ready(() =>{
       size: "large"
     });
   });
+
+  $(document).on("click", ".delete-member", function(){
+    var id = $(this).attr('data-id');
+    var $tr = $(this).parent().parent();
+    console.log(id);
+    $.ajax({
+      url: '/members/'+id,
+      type: "DELETE"
+    }).done(function() {
+        $.toast("Miembro Eliminado :)");
+        $tr.remove();
+        if($tr.parent().length == 0){
+          $(".table-members").remove();
+          $("#miembros .container-1").append(`<img src="../../images/abrazame.png" class="img-fluid"/>
+<p>Oh no! Parece que aún no tienes miembros! Registra algunos.`);
+        }
+      })
+      .fail(function(err) {
+        console.log(err);
+        $.toast("Membro no eliminado :/");
+      })
+      .always(function() {
+      });
+
+  });
+
 
 });

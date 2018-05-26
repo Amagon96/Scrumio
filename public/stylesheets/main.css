@@ -263,7 +263,7 @@ main {
   font-size: 30px;
   font-weight: bold; }
 
-#equipos button, #miembros button, #enviarMembers {
+#equipos button, #miembros button {
   border-radius: 7px;
   background-color: #ffffff;
   border: solid 3px #f57f17;
@@ -282,6 +282,16 @@ main {
 #equipos a, #miembros a {
   text-align: center;
   color: #f57f17; }
+
+#equipos .table-members th, #miembros .table-members th {
+  font-size: 14px;
+  font-weight: bold; }
+
+#equipos .table-members td, #miembros .table-members td {
+  font-size: 14px; }
+
+#equipos .table-members th, #miembros .table-members th {
+  border-top: none !important; }
 
 #modalAddAbility label {
   font-size: 13px;
@@ -319,23 +329,23 @@ main {
 #modalAddAbility select {
   border: solid 3px #f57f17; }
 
-#modalAddMembers label {
-  font-size: 13px;
+#modalAddMembers h4 {
+  font-size: 20px;
   font-weight: bold; }
 
-#modalAddMembers h4 {
-  width: 198px;
-  height: 27px;
-  font-family: OpenSans;
-  font-size: 20px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #4a4a4a;
-}
+#modalAddMembers p {
+  font-size: 16px; }
+
+#modalAddMembers button {
+  border-radius: 7px;
+  background-color: #ffffff;
+  border: solid 3px #f57f17;
+  font-size: 13px;
+  color: #f57f17;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-size: 15px;
+  cursor: pointer; }
 
 #modalAddMembers .closeModal {
   background: none;
@@ -346,20 +356,20 @@ main {
   cursor: pointer;
   outline: inherit;
   font-size: 13px;
-  font-weight: bold;
-}
+  font-weight: bold; }
+
+#modalAddMembers label {
+  font-size: 13px;
+  font-weight: bold; }
 
 #modalAddMembers .form-control {
   border: none;
   border-bottom: 2px solid #f57f17;
   border-radius: 0px;
   font-size: 13px;
-  color: #4a4a4a;
-}
-
-#modalAddMembers .form-control:focus {
-  box-shadow: none;
-}
+  color: #4a4a4a; }
+  #modalAddMembers .form-control:focus {
+    box-shadow: none; }
 
 #modalAddTeam .choose-team {
   text-align: center; }
@@ -390,6 +400,17 @@ main {
   #modalAddTeam .form-control:focus {
     box-shadow: none; }
 
+#modalAddTeam button {
+  border-radius: 7px;
+  background-color: #f57f17;
+  border: solid 3px #f57f17;
+  font-size: 13px;
+  font-weight: bold;
+  color: #ffffff;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  cursor: pointer; }
+
 #modalAddTeam .closeModal {
   background: none;
   color: inherit;
@@ -400,6 +421,63 @@ main {
   outline: inherit;
   font-size: 13px;
   font-weight: bold; }
+
+.container-check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+/* Hide the browser's default checkbox */
+.container-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; }
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee; }
+
+/* On mouse-over, add a grey background color */
+.container-check:hover input ~ .checkmark {
+  background-color: #ccc; }
+
+/* When the checkbox is checked, add a blue background */
+.container-check input:checked ~ .checkmark {
+  background-color: #f5a623; }
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+/* Show the checkmark when checked */
+.container-check input:checked ~ .checkmark:after {
+  display: block; }
+
+/* Style the checkmark/indicator */
+.container-check .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg); }
 
 #proyectos .titles i {
   color: #f57f17;
