@@ -76,6 +76,7 @@ require('./routes/tasks.js')(app, passport);
 require('./routes/email.js')(app, passport);
 require('./routes/members.js')(app, passport);
 require('./routes/teams.js')(app, passport);
+require('./routes/archives.js')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

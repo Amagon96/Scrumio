@@ -259,6 +259,25 @@ main {
   #archivero .container-1 p {
     font-size: 24px; }
 
+#archivero .table-archives th {
+  font-size: 14px;
+  font-weight: bold; }
+
+#archivero .table-archives td {
+  font-size: 14px; }
+  #archivero .table-archives td button {
+    border-radius: 7px;
+    background-color: #ffffff;
+    border: solid 3px #f57f17;
+    font-size: 13px;
+    color: #f57f17;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    cursor: pointer; }
+
+#archivero .table-archives th {
+  border-top: none !important; }
+
 #equipos h2, #miembros h2 {
   font-size: 30px;
   font-weight: bold; }
@@ -569,6 +588,10 @@ main {
     padding-bottom: 0px;
     padding-top: 0px; }
 
+.tab-pane {
+  height: 600px;
+  overflow-y: auto; }
+
 .fp-slidesContainer {
   overflow-y: auto  !important;
   padding-bottom: 10%;
@@ -707,6 +730,9 @@ select::-ms-expand {
     font-weight: bold; }
   .backlogs .teams {
     min-height: 395px; }
+    .backlogs .teams p {
+      font-size: 18px;
+      font-weight: bold; }
   .backlogs .backlog {
     min-height: 366px;
     background-color: #ffffff;

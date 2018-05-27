@@ -1,4 +1,19 @@
 $(document).ready(() =>{
+  $("#endProject").click(function(){
+    var id = $(this).attr('data-id');
+    console.log(id);
+    $.ajax({
+      url: '/projects/'+id,
+      type: "DELETE"
+    }).done(function() {
+      window.location = "/home_projects"
+      })
+      .fail(function(err) {
+
+      })
+      .always(function() {
+      });
+  });
 
   $("#closeSideModal").click(()=>{
     $("#mySidenav").width("0px");
@@ -541,12 +556,12 @@ $(document).ready(() =>{
       type: "DELETE"
     }).done(function() {
         $.toast("Miembro Eliminado :)");
-        $tr.remove();
-        if($tr.parent().length == 0){
+        if($tr.siblings().length == 0){
           $(".table-members").remove();
           $("#miembros .container-1").append(`<img src="../../images/abrazame.png" class="img-fluid"/>
 <p>Oh no! Parece que aún no tienes miembros! Registra algunos.`);
         }
+        $tr.remove();
       })
       .fail(function(err) {
         console.log(err);
@@ -557,5 +572,59 @@ $(document).ready(() =>{
 
   });
 
+  $(document).on("click", ".delete-archive", function(){
+    var id = $(this).attr('data-id');
+    var $tr = $(this).parent().parent();
+    console.log(id);
+    $.ajax({
+      url: '/archives/'+id,
+      type: "DELETE"
+    }).done(function() {
+        $.toast("Archivo Eliminado :)");
+        console.log($tr.siblings());
+        if($tr.siblings().length == 0){
+          $(".table-archives").remove();
+          $("#archivero .container-1").append(`
+            <img src="../../images/panzon.png"/>
+            <p>Parece que no tienes ningún proyecto archivado, pero no te asustes. Una vez que terminas tus proyectos podrás verlos aqui.</p>
+            `);
+        }
+        $tr.remove();
+      })
+      .fail(function(err) {
+        console.log(err);
+        $.toast("Membro no eliminado :/");
+      })
+      .always(function() {
+      });
+
+  });
+
+  $(document).on("click", ".delete-team", function(){
+    var id = $(this).attr('data-id');
+    var $tr = $(this).parent().parent();
+    console.log(id);
+    $.ajax({
+      url: '/teams/'+id,
+      type: "DELETE"
+    }).done(function() {
+        $.toast("Equipo Eliminado :)");
+        if($tr.siblings().length == 0){
+          $(".table-teams").remove();
+          $("#equipos .container-1").append(`
+            <img src="../../images/snoppy.png" class="img-fluid"/>
+            <p>Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos.</p>
+            `);
+        }
+        $tr.remove();
+      })
+      .fail(function(err) {
+        console.log(err);
+        $.toast("Miembro no eliminado :/");
+      })
+      .always(function() {
+      });
+
+  });
 
 });

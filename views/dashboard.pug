@@ -32,7 +32,7 @@ block content
             div.col-md-4
               h4 Titulo del Proyecto
             div.col-md-4
-              button.btn Terminar Proyecto
+              button.btn#endProject(data-id=project[0]._id) Terminar Proyecto
           div.row.data
             div.col-md-4.mb-2
               div.wrapper.ml-5.img-project
@@ -124,10 +124,14 @@ block content
                 i.fa.fa-long-arrow-right.pr-5
               div.mt-3.teams
                 h4#teams Equipos
-                a(href="#") Agregar
+                a.addTeam(href="#", data-members=members) Agregar
                 div.pt-5
-                  img(src="../../images/baloom.png").img-fluid
-                  p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
+                  if teams.length == 0 
+                    img(src="../../images/baloom.png").img-fluid
+                    p A nadie le gusta trabajar solo, comenzemos agregando <a href="#">equipos</a>
+                  else
+                    each val in teams
+                      p #{val.name}
         div.slide#slide2(data-anchor='slide2')
           div.titles.row.mt-3.ml-5
             div.col-md-4
@@ -188,23 +192,58 @@ block content
                             div.pl-1
                               a(href="#").mr-2 REVERSO DE TARJETA
                               a.detail-history(href="#", data-obj=val_card) VER DETALLE DE TAREA
-    div#archivero.tab-pane.fade.container(class=archivero)
+    div#archivero.tab-pane.fade.container.pb-5(class=archivero)
       div.d-flex.flex-row.mt-3
         div
           h2 Archivero de Proyectos
       div.mt-3.container-1
-        img(src="../../images/panzon.png")
-        p Parece que no tienes ningún proyecto archivado, pero no te asustes. Una vez que terminas tus proyectos podrás verlos aqui.
-    div#equipos.tab-pane.fade.container(class=equipos)
+        if archives.length == 0
+          img(src="../../images/panzon.png")
+          p Parece que no tienes ningún proyecto archivado, pero no te asustes. Una vez que terminas tus proyectos podrás verlos aqui.
+        else    
+          table.table.table-archives
+            thead
+              tr
+                th(scope='col') Nombre
+                th(scope='col') Fecha de Termino
+                th(scope='col') 
+            tbody
+              each val in archives
+                tr(id=val._id)
+                  td.abilityName #{val.project.nombre}
+                  td.abilityType #{val.date_finished}
+                  td.abilityType 
+                    button.btn.delete-archive(data-id=val._id) Eliminar
+    div#equipos.tab-pane.fade.container.pb-5(class=equipos)
       div.d-flex.mt-3
         div
           h2 Listado de Equipos
         div.ml-auto 
           button.addTeam.btn(data-members=members) AGREGAR EQUIPO
       div.mt-3.container-1
-        img(src="../../images/snoppy.png").img-fluid
-        p Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos <a class='addTeam' href="#">aqui</a>.
-    div#miembros.tab-pane.fade.container(class=miembros)
+        if teams.length == 0 
+          img(src="../../images/snoppy.png").img-fluid
+          p Para poder agregar tus equipos primero necesitamos armarlos. Registra tus equipos <a data-members=#{members} class='addTeam' href="#">aqui</a>.
+        else
+          table.table.table-teams
+            thead
+              tr
+                th(scope='col') Nombre
+                th(scope='col') Miembros
+                th(scope='col') 
+            tbody
+              each val in teams
+                tr(id=val._id)
+                  td #{val.name}
+                  td
+                    each val_m, i in val.members
+                      if i + 1 == val.members.length
+                        span #{val_m.name}
+                      else
+                        span #{val_m.name}, 
+                  td
+                    button.btn.delete-team(data-id=val._id) Eliminar
+    div#miembros.tab-pane.fade.container.pb-5(class=miembros)
       div.d-flex.mt-3
         div
           h2 Listado de Miembros

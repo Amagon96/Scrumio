@@ -9,10 +9,8 @@ exports.sendEmail = function(req, res){
 
   var email_user = req.body.email;
   const project_id = req.params.project_id;
-  console.log(email_user);
   User.findOne({"local.email": email_user}, function(err, user){
     if(err){
-      console.log(err);
     }else{
       if(user){
         createMember(user, email_user, project_id, 'local');
@@ -20,7 +18,6 @@ exports.sendEmail = function(req, res){
       }else{
         User.findOne({"google.email": email_user}, function(err, user){
           if(err){
-            console.log(err);
           }else{
             if(user){
               createMember(user, email_user, project_id, 'google');
@@ -28,7 +25,6 @@ exports.sendEmail = function(req, res){
             }else{
               User.findOne({"facebook.email": email_user}, function(err, user){
                 if(err){
-                  console.log(err);
                 }else{
                   if(user){
                     createMember(user, email_user, project_id, 'facebook');
@@ -47,8 +43,8 @@ exports.sendEmail = function(req, res){
 };
 
 function createMember(user, email_user, project_id, type){
-  console.log(user.local.name);
   const user_id = user._id;
+  console.log(user);
   var name = '';
   if(type == 'local'){
     name = user.local.name;

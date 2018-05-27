@@ -42,13 +42,13 @@ function remove(request, response, next) {
       console.log(err);
       response.json({
         error: true,
-        message: 'Miembro no Eliminado.',
+        message: 'Equipo no Eliminado.',
         objs: err
       });
     } else {
       response.json({
         error: false,
-        message: 'Miembro Eliminado.',
+        message: 'Equipo Eliminado.',
         objs: obj
       });
     }

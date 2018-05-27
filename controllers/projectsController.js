@@ -1,6 +1,8 @@
 const express = require('express');
 const Project = require('../models/project');
+const Archive = require('../models/archive');
 const mongoose = require('mongoose');
+const Member = require('../models/member');
 
 function index(req, res, next){
   var user;
@@ -46,7 +48,7 @@ function create(req, res, next){
   proyect.product_owner_id = product_owner_id;
   proyect.description = description;
 
-  proyect.save((err, proyect)=>{
+  proyect.save((err, archive)=>{
     if (err) {
       res.json({
         err: true,
@@ -62,9 +64,17 @@ function create(req, res, next){
             objs: err
           });
         }else{
+          var user;
+          if(req.user.local.name){
+            user = req.user.local
+          }else if(req.user.google.name) {
+            user = req.user.google
+          }else if(req.user.facebook.name) {
+            user = req.user.facebook
+          }
           res.render('home_projects', {
             title: "Proyectos",
-            userName: req.user.local,
+            userName: user,
             projects: objs
           });
         }
@@ -75,6 +85,7 @@ function create(req, res, next){
 
 function home(req, res, next){
   var user;
+  var member_projects = [];
   Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
       res.json({
@@ -83,17 +94,32 @@ function home(req, res, next){
         objs: err
       });
     }else{
-      if(req.user.local.name){
-        user = req.user.local
-      }else if(req.user.google.name) {
-        user = req.user.google
-      }else if(req.user.facebook.name) {
-        user = req.user.facebook
-      }
-      res.render('home_projects', {
-        title: "Proyectos",
-        userName: user,
-        projects: objs
+      Member.find({"user_id": req.user._id}, function(err, members){
+        members.forEach(function(item, index){
+          Project.findOne({_id: item.project_id}, function(err, project){
+            if(err){
+
+            }else{
+              member_projects.push(project);
+            }
+            if(index + 1 == members.length){
+              if(req.user.local.name){
+                user = req.user.local
+              }else if(req.user.google.name) {
+                user = req.user.google
+              }else if(req.user.facebook.name) {
+                user = req.user.facebook
+              }
+              console.log(member_projects);
+              res.render('home_projects', {
+                title: "Proyectos",
+                userName: user,
+                projects: objs,
+                projects_member: member_projects
+              });
+            }
+          });
+        });
       });
     }
   });
@@ -154,7 +180,7 @@ function findByOne(req, res, next){
 function remove(req, res, next){
   const id = req.params.id;
   if(id){
-    Project.remove({_id:id}, function(err){
+    Project.findByIdAndRemove(id, function(err, obj){
       if (err) {
         res.json({
           err: true,
@@ -162,11 +188,56 @@ function remove(req, res, next){
           objs: {}
         });
       }else{
-        res.json({
-          err: false,
-          message:'Proyecto eliminado',
-          objs: {}
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10) {
+            dd = '0'+dd
+        }
+        if(mm<10) {
+            mm = '0'+mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+
+        let archive = new Archive();
+        archive.project = obj;
+        archive.date_finished = today;
+
+        archive.save((err, proyect)=>{
+          if (err) {
+            res.json({
+              err: true,
+              message: 'No se pudo guardar el proyecto',
+              objs: err
+            });
+          }else{
+            var user;
+            if(req.user.local.name){
+              user = req.user.local
+            }else if(req.user.google.name) {
+              user = req.user.google
+            }else if(req.user.facebook.name) {
+              user = req.user.facebook
+            }
+            Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
+              if(err){
+                res.json({
+                  err: true,
+                  message: 'No se pudieron extraer los proyectos',
+                  objs: err
+                });
+              }else{
+                res.json({
+                  err: true,
+                  message: 'No se puedieron extraer los proyectos',
+                  objs: objs
+                });
+              }
+            });
+          }
         });
+
       }
     });
   }else{

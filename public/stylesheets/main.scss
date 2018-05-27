@@ -336,6 +336,22 @@ main{
       font-size: 24px;
     }
   }
+  .table-archives{
+    th{
+      font-size: 14px;
+      font-weight: bold;
+    }
+    td{
+      font-size: 14px;
+      button{
+        @include btn-background-white();
+        cursor: pointer;
+      }
+    }
+    th{
+      border-top: none !important;
+    }
+  }
 }
 #equipos, #miembros{
   h2{
@@ -583,6 +599,10 @@ main{
     }
   }
 }
+.tab-pane{
+  height: 600px;
+  overflow-y: auto;
+}
 .fp-slidesContainer{
   overflow-y: auto  !important;
   padding-bottom: 10%;
@@ -723,6 +743,10 @@ select::-ms-expand {
   }
   .teams{
     min-height: 395px;
+    p{
+      font-size: 18px;
+      font-weight: bold;
+    }
   }
   .backlog{
     min-height: 366px;
@@ -987,7 +1011,6 @@ select::-ms-expand {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
 }
-
 
 @media screen and (max-width: 1135px) {
 
