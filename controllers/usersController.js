@@ -18,13 +18,14 @@ function index(request, response, next) {
       }else if(request.user.facebook.name) {
         user = request.user.facebook
       }
-      console.log(request.params.project_id);
+      console.log(request.params.dashboard);
       response.render('profile', {
         title: "Profile",
         user_id: request.user._id,
         userName: user,
         abilities: abilities_db,
-        project_id: request.params.project_id
+        project_id: request.params.project_id,
+        dashboard : request.params.dashboard
       });
     }
   });

@@ -3,6 +3,8 @@ const Project = require('../models/project');
 const Archive = require('../models/archive');
 const mongoose = require('mongoose');
 const Member = require('../models/member');
+const History = require('../models/history');
+const Sprint = require('../models/sprint');
 
 function index(req, res, next){
   var user;
@@ -249,6 +251,33 @@ function remove(req, res, next){
   }
 }
 
+function dashboard_project(req, res, next){
+  var user;
+  if(req.user.local.name){
+    user = req.user.local
+  }else if(req.user.google.name) {
+    user = req.user.google
+  }else if(req.user.facebook.name) {
+    user = req.user.facebook
+  }
+  Project.findOne({_id : req.params.id}, (err, project)=>{
+    History.find({"project_id": project._id, "state": "Validado"}, function(err, histories_db){
+      Sprint.find({"project_id": project._id}, function(err, sprints_db){
+        if(err){
+
+        }else{
+          res.render('dashboard_project', {
+            title: "Dashboard",
+            userName: user,
+            histories: histories_db,
+            sprints : sprints_db,
+            project: project
+          });
+        }
+      });
+    });
+  });
+}
 
 module.exports = {
   index,
@@ -256,5 +285,6 @@ module.exports = {
   create,
   update,
   findByOne,
-  remove
+  remove,
+  dashboard_project
 }

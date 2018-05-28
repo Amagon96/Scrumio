@@ -207,7 +207,9 @@ main{
       &.active{
         border-left: 5px solid #f5a623;
       }
-
+      .img-project{
+        max-width: 100px;
+      }
     }
     .logout{
       padding: 0px;

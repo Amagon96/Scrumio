@@ -46,12 +46,14 @@ function burndown(request, response, next) {
       });
     } else {
       History.find({"sprint_id": mongoose.Types.ObjectId(sprint_id)}, function(err, objs){
+        console.log(request.params.dashboard);
         response.render('burndown', {
           title: "Burndown",
           userName: user,
           project_id: request.params.project_id,
           sprint : sprint_db,
-          histories: objs
+          histories: objs,
+          dashboard: request.params.dashboard
         });
       });
     }
@@ -131,7 +133,11 @@ function create(request, response, next){
           objs: err
         });
       } else {
-        response.redirect('/dashboard/'+request.params.project_id+'#firstPage/slide2');
+        if(request.params.no_dashboard){
+          response.redirect('/dashboard_project/'+request.params.project_id);
+        }else{
+          response.redirect('/dashboard/'+request.params.project_id+'#firstPage/slide2');
+        }
       }
     });;
 

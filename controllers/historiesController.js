@@ -252,7 +252,11 @@ function update_time(request, response, next) {
           objs: err
         });
       } else {
-        response.redirect('/dashboard/'+request.params.project_id);
+        if(request.params.dashboard){
+          response.redirect('/dashboard_project/'+request.params.project_id);
+        }else{
+          response.redirect('/dashboard/'+request.params.project_id);
+        }
       }
     });
   });

@@ -1,0 +1,96 @@
+extends layout
+
+block content
+  main.container#proyectos
+    div.slide#slide2(data-anchor='slide2')
+    div.titles.row.mt-3.ml-5
+      div.col-md-4
+      
+      div.col-md-4
+        h4 Configurar Release
+      div.col-md-4
+        button.btn.addSprint(data-id=project._id data-route="dashboard_project") Agregar Release
+    div.row.backlogs.ml-5.pl-2
+      div.col-md-4
+        h1 Release Backlog
+        div.header
+        div.backlog.p-1#createReleaseBacklog
+          each val in histories
+            if val.sprint_id == undefinded
+              div.card.m-2(data-id=val._id)
+                div.pl-3
+                  h6.d-inline-block Narrativa de la Historia
+                  span.float-right.pl-3.pr-3.validate
+                    strong.status #{val.state}
+                div.pl-3
+                  p #{val.narrative}
+                div.pl-3
+                  h6 Como
+                div.pl-3
+                  p #{val.so_that}
+                div.pl-1
+                  a(href="#").mr-2 REVERSO DE TARJETA
+                  a.detail-history(href="#", data-obj=val data-route='dashboard') VER DETALLE DE TAREA
+      div.col-md-5.ml-5
+        div#slides-release(data-count-slides=sprints.length)
+          each val in sprints
+            div.pl-2
+              h1 Release #{val.sprintNumber}
+              div.header.pl-2
+                div
+                  label(for='exampleInputEmail1') Fecha de Entrega
+                  div.dropdown
+                    i.fa.fa-ellipsis-v
+                    div.dropdown-content
+                      a(href='/sprints/'+val._id+'/burndown/'+project._id+"/dashboard_project") Burndown
+                  input.form-control(type='date', placeholder='Enter email' value=val.end_date)
+              div.backlog.p-1.release(id='release-drop'+val.sprintNumber data-sprint_id=val._id)
+                each val_card in histories
+                  if val_card.sprint_id == val._id.toString()
+                    div.card.m-1(data-id=val_card._id)
+                      div.pl-3
+                        h6.d-inline-block Narrativa de la Historia
+                        span.float-right.pl-3.pr-3.validate
+                          strong.status #{val_card.state}
+                      div.pl-3
+                        p #{val_card.narrative}
+                      div.pl-3
+                        h6 Como
+                      div.pl-3
+                        p #{val_card.so_that}
+                      div.pl-1
+                        a(href="#").mr-2 REVERSO DE TARJETA
+                        a.detail-history(href="#", data-obj=val_card, data-route='dashboard') VER DETALLE DE TAREA
+
+block header
+  header.navbar.sticky-top.margin-sidemenu.d-flex.justify-content-center
+    div
+      button(class="btn navbar-toggler mr-2", type="button", data-toggle="collapse", data-target="#navbarSupportedContent", aria-controls="navbarSupportedContent", aria-expanded="false", aria-label="Toggle navigation")
+        i.fa.fa-bars
+    form.form-inline.mr-auto
+      div.form-group
+        <input class="form-control" type="search" placeholder="&#xf002; Busca lo que quieras..." aria-label="Search"></input>
+    div.mr-4
+      button.modalProyecto.btn.btn-createProy.mr-3 Nuevo Proyecto
+      a(href="/profile/"+project._id+"/dashboard_project")
+        img(src="../../images/leader.png").img-profile
+    div.d-inline-block.mr-4
+      a(href="/profile/"+project._id+"/dashboard_project")
+        p #{userName.name}
+        p Perfil
+    #navbarSupportedContent.collapse.navbar-collapse
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link(class=home href='/home_projects') Home
+        a.nav-item.nav-link(data-toggle='tab', role='tab', aria-selected='true', href='#')
+          img(src="../../images/osito.png").img-profile
+block sidemenu
+  div.sidenav
+    img(src="../../images/logo.png")
+    div.menu.mt-5
+      div.nav.nav-tabs(role='tablist')
+        a.nav-item.nav-link(class=home href='/home_projects') Home
+        a.nav-item.nav-link.active(data-toggle='tab', role='tab', aria-selected='true', href='#')
+          img(src="../../images/osito.png").img-project
+      div.fixed-bottom.ml-5.mb-3
+        a(href="/logout").logout
+          img(src="../../images/logout.png")

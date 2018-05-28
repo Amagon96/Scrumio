@@ -10,6 +10,7 @@ block content
         img(src="images/empty_state_proyect.png").img-fluid
         p Parece que está algo vacio por aqui, por qué no empezamos creando un <a class="modalProyecto" href="#">proyecto</a>.
       else
+        h1 Proyectos Propietrio
         div.d-flex.flex-wrap
           each val in projects
             a(href="dashboard/"+val._id)
@@ -17,8 +18,16 @@ block content
                 p #{val.nombre}
                 p #{val.product_owner}
                 p #{val.date_deployed}
-        p #{projects_member}
-  
+        if projects_member.length != 0 
+          h1 Proyectos Miembro
+          div.d-flex.flex-wrap
+            each val in projects_member
+              if val != null
+                a(href="dashboard_project/"+val._id)
+                  div.card-proyect(data-id=val._id)
+                    p #{val.nombre}
+                    p #{val.product_owner}
+                    p #{val.date_deployed}
 block header
   header.navbar.sticky-top.d-flex
     form.form-inline.mr-auto

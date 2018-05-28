@@ -3,7 +3,7 @@ const historiasController = require('../controllers/historiesController');
 module.exports = function(app, passport) {
   app.post('/histories/:project_id', isLoggedIn, historiasController.create);
 
-  app.post('/histories/update_time/:history_id/:project_id', isLoggedIn, historiasController.update_time);
+  app.post('/histories/update_time/:history_id/:project_id/:dashboard?', isLoggedIn, historiasController.update_time);
 
   app.get('/histories/:page?', isLoggedIn, historiasController.index);
 

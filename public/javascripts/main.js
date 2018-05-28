@@ -117,10 +117,13 @@ $(document).ready(() =>{
 
   $("#addAbility").click(function(){
     project_id = $(this).attr("data-id");
-    console.log(project_id);
+    var route = '';
+    if($(this).attr("data-route")){
+      route = '/dashboard_project';
+    }
     body = `<div id="modalAddAbility">
               <h4>Crear Nueva Habilidad</h4>
-              <form method='POST' action='/abilities/${project_id}'>
+              <form method='POST' action='/abilities/${project_id + route}'>
                 <div class="form-group">
                   <label>Nombre</label>
                   <input name="name" id="createTeam" type="text" placeholder="Escribe el nombre de tu Habilidad" class="form-control"/>
@@ -380,8 +383,12 @@ $(document).ready(() =>{
 
   $(".addSprint").click(function(){
     var project_id = $(this).attr("data-id");
+    var route = '';
+    if($(this).attr("data-route")){
+      route = '/dashboard_project';
+    }
     body = `<div id="modalAddSprint">
-              <form action="/sprints/${project_id}" method='POST'>
+              <form action="/sprints/${project_id + route}" method='POST'>
                 <div class="form-group">
                   <label>Numero de Spring</label>
                   <input name="num_spring" id="numSpring" type="number" placeholder="Escoge el numero de tu Spring" class="form-control"/>
@@ -456,7 +463,10 @@ $(document).ready(() =>{
   $(document).on("click", ".detail-history", function(){
     var obj =  JSON.parse($(this).attr("data-obj"));
     var time = obj.time_did == undefined ? "" : obj.time_did;
-    console.log(obj);
+    var route = '';
+    if($(this).attr("data-route")){
+      route = '/dashboard_project';
+    }
     body = `<div id="modalDetailHistory">
               <h1>Detalle de Tarea</h1>
               <div class='row pt-3'>
@@ -517,7 +527,7 @@ $(document).ready(() =>{
                   <p>${obj.since}</p>
                 </div>
               </div>
-              <form action="/histories/update_time/${obj._id}/${obj.project_id}" method='POST'>
+              <form action="/histories/update_time/${obj._id}/${obj.project_id + route}" method='POST'>
                 <div class='row'>
                   <h2>Horas Estimadas</h2>
                 </div>

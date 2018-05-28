@@ -30,7 +30,11 @@ function create(request, response, next) {
           abilities_db = null;
         }else{
           abilities_db = docs;
-          response.redirect('/profile/'+request.params.project_id);
+          if(request.params.dashboard_project){
+            response.redirect('/profile/'+request.params.project_id+'/dashboard_project');
+          }else{
+            response.redirect('/profile/'+request.params.project_id);
+          }
         }
       });
     }
