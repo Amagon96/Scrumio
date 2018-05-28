@@ -261,21 +261,29 @@ function dashboard_project(req, res, next){
     user = req.user.facebook
   }
   Project.findOne({_id : req.params.id}, (err, project)=>{
-    History.find({"project_id": project._id, "state": "Validado"}, function(err, histories_db){
-      Sprint.find({"project_id": project._id}, function(err, sprints_db){
-        if(err){
-
-        }else{
-          res.render('dashboard_project', {
-            title: "Dashboard",
-            userName: user,
-            histories: histories_db,
-            sprints : sprints_db,
-            project: project
-          });
-        }
+    if(project == undefined){
+      res.render('error', {
+        title: "Error Inesperado"
       });
-    });
+    }else{
+      History.find({"project_id": project._id, "state": "Validado"}, function(err, histories_db){
+        Sprint.find({"project_id": project._id}, function(err, sprints_db){
+          if(err){
+            res.render('error', {
+              title: "Error"
+            });
+          }else{
+            res.render('dashboard_project', {
+              title: "Dashboard",
+              userName: user,
+              histories: histories_db,
+              sprints : sprints_db,
+              project: project
+            });
+          }
+        });
+      });
+    }
   });
 }
 

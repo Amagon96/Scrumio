@@ -27,11 +27,11 @@ block sidemenu
     div.menu.mt-5
       div.nav.nav-tabs(role='tablist')
         a.nav-item.nav-link.send-active(href='/home_projects') Home
-        if dashboard == undefined
-          p #{dashboard}
+        if dashboard == undefined && project_id != undefined
           a.nav-item.nav-link.send-active(href='/dashboard/'+project_id) Dashboard
-        else
-          a.nav-item.nav-link.send-active(href='/dashboard_project/'+project_id) Dashboard
+        else 
+          if project_id != undefined
+            a.nav-item.nav-link.send-active(href='/dashboard_project/'+project_id) Dashboard
       div.fixed-bottom.ml-5.mb-3
         a(href="/logout").logout
           img(src="../../images/logout.png").img-profile

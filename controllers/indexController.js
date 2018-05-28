@@ -37,7 +37,6 @@ function dashboard(request, response, next) {
           Member.find({"project_id": obj[0]._id}, function(err, members_db){
             Team.find({"project_id": obj[0]._id}, function(err, teams_db){
               Archive.find({"project.product_owner_id": request.user._id}, function(err, archives_db){
-                console.log(archives_db);
                 response.render('dashboard', {
                   title: "Dashboard",
                   userName: request.user.local.name || request.user.google.name || request.user.facebook.name,

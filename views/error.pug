@@ -1,7 +1,21 @@
 extends layout
 
 block content
-  h1 hola
-  h1= messages
-  h2= error.status
-  pre #{error.stack}
+  link(rel='stylesheet', href='/stylesheets/error.css')
+  main.container
+    div.erreoMsg
+    div.errorImage
+      div.layer(data-depth='0.25')
+        svg(xmlns='http://www.w3.org/2000/svg', width='156', height='95', viewbox='5.729 -123.167 156 95')
+          g(fill='#A7A3A1')
+            circle(cx='32.975', cy='-99.187', r='18.435')
+            circle(cx='139.37', cy='-99.187', r='18.435')
+          path(fill='#A7A3A1', d='M113.244-33.342c-.139-.072-14.488-7.395-27.077-7.395-12.653 0-26.935 7.322-27.077 7.395l-4.934-9.525c.678-.351 16.774-8.597 32.011-8.597s31.333 8.247 32.011 8.597l-4.934 9.525z')
+    div.errorText
+      div.title Oops！
+      div.txt
+        p
+          | Puedes
+          a(href='javascript:history.back()') Ir a la Página Anterior.
+
+  script(src="/javascripts/error.js")
