@@ -88,6 +88,13 @@ function create(req, res, next){
 function home(req, res, next){
   var user;
   var member_projects = [];
+  if(req.user.local.name){
+    user = req.user.local
+  }else if(req.user.google.name) {
+    user = req.user.google
+  }else if(req.user.facebook.name) {
+    user = req.user.facebook
+  }
   Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
       res.json({
@@ -97,31 +104,34 @@ function home(req, res, next){
       });
     }else{
       Member.find({"user_id": req.user._id}, function(err, members){
-        members.forEach(function(item, index){
-          Project.findOne({_id: item.project_id}, function(err, project){
-            if(err){
 
-            }else{
-              member_projects.push(project);
-            }
-            if(index + 1 == members.length){
-              if(req.user.local.name){
-                user = req.user.local
-              }else if(req.user.google.name) {
-                user = req.user.google
-              }else if(req.user.facebook.name) {
-                user = req.user.facebook
+        if(members.length != 0){
+          members.forEach(function(item, index){
+            Project.findOne({_id: item.project_id}, function(err, project){
+              if(err){
+
+              }else{
+                member_projects.push(project);
               }
-              console.log(member_projects);
-              res.render('home_projects', {
-                title: "Proyectos",
-                userName: user,
-                projects: objs,
-                projects_member: member_projects
-              });
-            }
+              if(index + 1 == members.length){
+                console.log(member_projects);
+                res.render('home_projects', {
+                  title: "Proyectos",
+                  userName: user,
+                  projects: objs,
+                  projects_member: member_projects
+                });
+              }
+            });
           });
-        });
+        }else{
+          res.render('home_projects', {
+            title: "Proyectos",
+            userName: user,
+            projects: objs,
+            projects_member: member_projects
+          });
+        }
       });
     }
   });
