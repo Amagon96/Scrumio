@@ -50,6 +50,17 @@ function create(req, res, next){
   proyect.product_owner_id = product_owner_id;
   proyect.description = description;
 
+  var user;
+  var member_projects = [];
+
+  if(req.user.local.name){
+    user = req.user.local
+  }else if(req.user.google.name) {
+    user = req.user.google
+  }else if(req.user.facebook.name) {
+    user = req.user.facebook
+  }
+
   proyect.save((err, archive)=>{
     if (err) {
       res.json({
@@ -66,18 +77,35 @@ function create(req, res, next){
             objs: err
           });
         }else{
-          var user;
-          if(req.user.local.name){
-            user = req.user.local
-          }else if(req.user.google.name) {
-            user = req.user.google
-          }else if(req.user.facebook.name) {
-            user = req.user.facebook
-          }
-          res.render('home_projects', {
-            title: "Proyectos",
-            userName: user,
-            projects: objs
+          Member.find({"user_id": req.user._id}, function(err, members){
+
+            if(members.length != 0){
+              members.forEach(function(item, index){
+                Project.findOne({_id: item.project_id}, function(err, project){
+                  if(err){
+
+                  }else{
+                    member_projects.push(project);
+                  }
+                  if(index + 1 == members.length){
+                    console.log(member_projects);
+                    res.render('home_projects', {
+                      title: "Proyectos",
+                      userName: user,
+                      projects: objs,
+                      projects_member: member_projects
+                    });
+                  }
+                });
+              });
+            }else{
+              res.render('home_projects', {
+                title: "Proyectos",
+                userName: user,
+                projects: objs,
+                projects_member: member_projects
+              });
+            }
           });
         }
       });
