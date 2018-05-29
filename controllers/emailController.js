@@ -89,10 +89,12 @@ function createMember(user, email_user, project_id, type){
           <!DOCTYPE html>
           <html>
             <body>
-              <header style="  width: 700px; height: 100px; background-color: #f5a623;">
+              <header style="width: 100%;background-color: #f5a623;">
                 <a style="  width: 138px; height: 45px; font-family: Tauri; font-size: 36px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; text-align: left; color: #ffffff;">Scrumio</a>
+                <img src='http://i66.tinypic.com/10xeequ.png'/>
               </header>
-               <p> Se te ha invitado a Scrumio, crea tu cuenta <a href="https://scrumio.herokuapp.com/">aquí</a>
+               <h1>Se le a inivitado a ser parte de un proyecto.</h1>
+               <h3>Accede a tu cuenta en <a href='https://scrumio.herokuapp.com' target='_blank'>Srumio</a> para poder participar en el proyecto.</h3>
             </body>
           </html>
           `
