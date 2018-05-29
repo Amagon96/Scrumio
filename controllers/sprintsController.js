@@ -11,11 +11,7 @@ function showAll(request, response, next) {
         limit: 4
     }, (err, objs) => {
         if (err) {
-            response.json({
-                error: true,
-                message: 'no se pudo extraer los sprints.',
-                objs: {}
-            });
+            res.render("error", {title: "Error"});
         } else {
             response.json({
                 error: false,
@@ -39,11 +35,7 @@ function burndown(request, response, next) {
 
   Sprint.findOne({ _id:  sprint_id}, function(err, sprint_db){
     if (err) {
-      response.json({
-          error: true,
-          message: 'no se pudo extraer el sprint.',
-          objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       History.find({"sprint_id": mongoose.Types.ObjectId(sprint_id)}, function(err, objs){
         console.log(request.params.dashboard);
@@ -66,11 +58,7 @@ function findOne (request, response, next){
     if(id){
         Sprint.find({ _id: id }).exec((err, obj)=>{
             if(err){
-                response.json({
-                    error: true,
-                    message : 'No se encontraró el sprint',
-                    objs: {}
-                });
+                res.render("error", {title: "Error"});
             }else{
                 response.json({
                     error: false,
@@ -127,11 +115,7 @@ function create(request, response, next){
 
     sprint.save((err, obj) => {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Sprint no Guardado',
-          objs: err
-        });
+        res.render("error", {title: "Error"});
       } else {
         if(request.params.no_dashboard){
           response.redirect('/dashboard_project/'+request.params.project_id);
@@ -160,11 +144,7 @@ function update(request, response, next){
             if(dataToUpdate.goals.length >= 1){
                 Sprint.findOneAndUpdate({ _id: id }, { $set: { start_date: dataToUpdate.start_date, end_date : dataToUpdate.end_date, goals : dataToUpdate.goals}}, (err, sprint)=>{
                     if (err) {
-                        response.json({
-                            err: true,
-                            message: 'No se pudo editar el Sprint',
-                            objs: err
-                        });
+                        res.render("error", {title: "Error"});
                     }else{
                         response.json({
                             err: false,
@@ -177,11 +157,7 @@ function update(request, response, next){
             else{
                 Sprint.findOneAndUpdate({ _id: id }, { $set: { start_date: dataToUpdate.start_date, end_date : dataToUpdate.end_date}}, (err, sprint)=>{
                     if (err) {
-                        response.json({
-                            err: true,
-                            message: 'No se pudo editar el Sprint',
-                            objs: err
-                        });
+                        res.render("error", {title: "Error"});
                     }else{
                         response.json({
                             err: false,
@@ -196,11 +172,7 @@ function update(request, response, next){
             if(dataToUpdate.goals.length >= 1){
                 Sprint.findOneAndUpdate({ _id: id }, { $set: { start_date: dataToUpdate.start_date, goals : dataToUpdate.goals}}, (err, sprint)=>{
                     if (err) {
-                        response.json({
-                            err: true,
-                            message: 'No se pudo editar el Sprint',
-                            objs: err
-                        });
+                        res.render("error", {title: "Error"});
                     }else{
                         response.json({
                             err: false,
@@ -213,11 +185,7 @@ function update(request, response, next){
             else{
                 Sprint.findOneAndUpdate({ _id: id }, { $set: { start_date: dataToUpdate.start_date}}, (err, sprint)=>{
                     if (err) {
-                        response.json({
-                            err: true,
-                            message: 'No se pudo editar el Sprint',
-                            objs: err
-                        });
+                        res.render("error", {title: "Error"});
                     }else{
                         response.json({
                             err: false,
@@ -233,11 +201,7 @@ function update(request, response, next){
         if(dataToUpdate.goals.length >= 1){
             Sprint.findOneAndUpdate({ _id: id }, { $set: { end_date : dataToUpdate.end_date, goals : dataToUpdate.goals}}, (err, sprint)=>{
                 if (err) {
-                    response.json({
-                        err: true,
-                        message: 'No se pudo editar el Sprint',
-                        objs: err
-                    });
+                    res.render("error", {title: "Error"});
                 }else{
                     response.json({
                         err: false,
@@ -250,11 +214,7 @@ function update(request, response, next){
         else{
             Sprint.findOneAndUpdate({ _id: id }, { $set: { end_date : dataToUpdate.end_date}}, (err, sprint)=>{
                 if (err) {
-                    response.json({
-                        err: true,
-                        message: 'No se pudo editar el Sprint',
-                        objs: err
-                    });
+                    res.render("error", {title: "Error"});
                 }else{
                     response.json({
                         err: false,
@@ -269,11 +229,7 @@ function update(request, response, next){
         if(dataToUpdate.goals.length >= 1){
             Sprint.findOneAndUpdate({ _id: id }, { $set: { end_date : dataToUpdate.end_date, goals : dataToUpdate.goals}}, (err, sprint)=>{
                 if (err) {
-                    response.json({
-                        err: true,
-                        message: 'No se pudo editar el Sprint',
-                        objs: err
-                    });
+                    res.render("error", {title: "Error"});
                 }else{
                     response.json({
                         err: false,
@@ -298,11 +254,7 @@ function remove(request, response, next) {
       _id: id
     }, function(err) {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Sprint no Eliminado',
-          objs: {}
-        });
+        res.render("error", {title: "Error"});
       } else {
         response.json({
           error: false,

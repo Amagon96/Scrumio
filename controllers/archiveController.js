@@ -14,12 +14,7 @@ function remove(request, response, next) {
     _id: id
   }, function(err, obj) {
     if (err) {
-      console.log(err);
-      response.json({
-        error: true,
-        message: 'Archivo no Eliminado.',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       response.json({
         error: false,

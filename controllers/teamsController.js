@@ -20,11 +20,7 @@ function create(request, response, next) {
 
   team.save((err, obj) => {
     if (err) {
-      response.json({
-        error: true,
-        message: 'Miembro no guardado',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       response.redirect('/dashboard/'+project_id);
     }
@@ -39,12 +35,7 @@ function remove(request, response, next) {
     _id: id
   }, function(err, obj) {
     if (err) {
-      console.log(err);
-      response.json({
-        error: true,
-        message: 'Miembro no Eliminado.',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       response.json({
         error: false,

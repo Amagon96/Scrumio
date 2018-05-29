@@ -16,11 +16,7 @@ function create(request, response, next) {
 
   member.save((err, obj) => {
     if (err) {
-      response.json({
-        error: true,
-        message: 'Miembro no guardado',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       response.json({
         error: true,
@@ -39,12 +35,7 @@ function remove(request, response, next) {
     _id: id
   }, function(err, obj) {
     if (err) {
-      console.log(err);
-      response.json({
-        error: true,
-        message: 'Equipo no Eliminado.',
-        objs: err
-      });
+        res.render("error", {title: "Error"});
     } else {
       response.json({
         error: false,
