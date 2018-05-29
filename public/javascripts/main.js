@@ -87,7 +87,7 @@ $(document).ready(() =>{
   $(".addMember").click(function(){
       var email = $(this).attr("data-email");
       var project_id = $(this).attr("data-project_id");
-      console.log(email);
+      console.log(email)
     body = `
     <div id="modalAddMembers">
       <h4>Agregar Miembro</h4>
