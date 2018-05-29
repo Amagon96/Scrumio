@@ -81,7 +81,18 @@ function createMember(user, email_user, project_id, type){
           from: 'Remitente',
           to: email_user,
           subject: 'Invitación a Scrumio',
-          text: 'Se te ha invitado a Scrumio, crea tu cuenta en https://scrumio.herokuapp.com/'
+          text: "Se te ha invitado a Scrumio, crea tu cuenta en ",
+          html: `
+          <!DOCTYPE html>
+          <html>
+            <body>
+              <header style="  width: 700px; height: 100px; background-color: #f5a623;">
+                <a style="  width: 138px; height: 45px; font-family: Tauri; font-size: 36px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; text-align: left; color: #ffffff;">Scrumio</a>
+              </header>
+               <p> Se te ha invitado a Scrumio, crea tu cuenta <a href="https://scrumio.herokuapp.com/">aquí</a>
+            </body>
+          </html>
+          `
       };
       // Enviamos el email
       transporter.sendMail(mailOptions, function(error, info){
