@@ -11,11 +11,7 @@ function showAll(request, response, next) {
         limit: 4
     }, (err, objs) => {
         if (err) {
-            response.json({
-                error: true,
-                message: 'no se pudo extraer las Tareas.',
-                objs: {}
-            });
+            res.render("error", {title: "Error"});
         } else {
             response.json({
                 error: false,
@@ -32,11 +28,7 @@ function showSprintTasks(request, response, next) {
     if(id){
         Task.find({ sprint: id }).exec((err, obj)=>{
             if(err){
-                response.json({
-                    error: true,
-                    message : 'No se encontraron tareas',
-                    objs: {}
-                });
+                res.render("error", {title: "Error"});
             }else{
                 response.json({
                     error: false,
@@ -61,11 +53,7 @@ function findOne (request, response, next){
     if(idTask){
         Task.find({ _id: idTask }).exec((err, obj)=>{
             if(err){
-                response.json({
-                    error: true,
-                    message : 'No se encontraró la tarea',
-                    objs: {}
-                });
+                res.render("error", {title: "Error"});
             }else{
                 response.json({
                     error: false,
@@ -94,11 +82,7 @@ function create(request, response, next){
         newTask.sprint = paramsSprint;
         newTask.save((err, task)=>{
             if (err) {
-                response.json({
-                    err: true,
-                    message: 'No se pudo guardar la Tarea',
-                    objs : {}
-                });
+                res.render("error", {title: "Error"});
             }else{
                 response.json({
                     err: false,
@@ -123,11 +107,7 @@ function remove(request, response, next) {
             _id: idTask
         }, function(err) {
             if (err) {
-                response.json({
-                    error: true,
-                    message: 'Tarea no Eliminada',
-                    objs: {}
-                });
+                res.render("error", {title: "Error"});
             } else {
                 response.json({
                     error: false,

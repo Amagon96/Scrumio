@@ -35,11 +35,7 @@ function create(req, res, next){
 
   history.save((err, history)=>{
     if (err) {
-      res.json({
-        err: true,
-        message: 'No se pudo guardar historia',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       res.redirect('/dashboard/'+req.params.project_id);
     }
@@ -53,11 +49,7 @@ function index(req, res, next){
     limit:3
   }, (err, history)=>{
     if(err){
-      res.json({
-        err: true,
-        message: 'No se pudo listar proyectos',
-        objs: {}
-      });
+      res.render("error", {title: "Error"});
     }else{
       res.json({
         err: false,
@@ -74,11 +66,7 @@ function show(req, res, next){
   History.findOne({
     _id:id
   }, (err, obj)=>{
-    res.json({
-      err: true,
-      message : 'Historia',
-      obj: obj
-    });
+    res.render("error", {title: "Error"});
   });
 }
 
@@ -89,11 +77,7 @@ function update_state(request, response, next) {
              { $set: {'state': state }},
              function(err, obj) {
                 if (err) {
-                  response.json({
-                    error: true,
-                    message: 'Habilidad no Guardada',
-                    objs: err
-                  });
+                  res.render("error", {title: "Error"});
                 } else {
                   response.json({
                     error: false,
@@ -135,11 +119,7 @@ function update(request, response, next) {
     history.when = when;
     history.save((err, obj) => {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Habilidad no Guardada',
-          objs: err
-        });
+        res.render("error", {title: "Error"});
       } else {
         response.json({
           error: false,
@@ -156,11 +136,7 @@ function remove(req, res, next){
   if(id){
     History.remove({_id:id}, function(err){
       if (err) {
-        res.json({
-          err: true,
-          message: 'No se pudo eliminar historia',
-          objs: {}
-        });
+        res.render("error", {title: "Error"});
       }else{
         res.json({
           err: false,
@@ -170,11 +146,7 @@ function remove(req, res, next){
       }
     });
   }else{
-    res.json({
-      err: true,
-      message:'Historia no existe',
-      objs:{}
-    });
+    res.render("error", {title: "Error"});
   }
 }
 
@@ -188,11 +160,7 @@ function update_sprint(request, response, next) {
     history.sprint_id = sprint_id;
     history.save((err, obj) => {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Historia no Guardada',
-          objs: err
-        });
+        res.render("error", {title: "Error"});
       } else {
         response.json({
           error: true,
@@ -213,11 +181,7 @@ function remove_sprint(request, response, next) {
     history.sprint_id = undefined;
     history.save((err, obj) => {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Historia no Guardada',
-          objs: err
-        });
+        res.render("error", {title: "Error"});
       } else {
         response.json({
           error: false,
@@ -246,11 +210,7 @@ function update_time(request, response, next) {
 
     history.save((err, obj) => {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Historia no Guardada',
-          objs: err
-        });
+        res.render("error", {title: "Error"});
       } else {
         if(request.params.dashboard){
           response.redirect('/dashboard_project/'+request.params.project_id);

@@ -59,11 +59,7 @@ function update(request, response, next) {
     }
   doc.save((err, obj) => {
     if (err) {
-      response.json({
-        error: true,
-        message: 'Usuario no Guardado',
-        objs: {}
-      });
+      res.render("error", {title: "Error"});
     } else {
       response.json({
         error: false,

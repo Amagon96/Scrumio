@@ -10,11 +10,7 @@ function index(req, res, next){
   var user;
   Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
-      res.json({
-        err: true,
-        message: 'No se puedieron extraer los proyectos',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       if(req.user.local.name){
         user = req.user.local
@@ -63,19 +59,11 @@ function create(req, res, next){
 
   proyect.save((err, archive)=>{
     if (err) {
-      res.json({
-        err: true,
-        message: 'No se pudo guardar el proyecto',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
         if(err){
-          res.json({
-            err: true,
-            message: 'No se puedieron extraer los proyectos',
-            objs: err
-          });
+          res.render("error", {title: "Error"});
         }else{
           Member.find({"user_id": req.user._id}, function(err, members){
 
@@ -125,11 +113,7 @@ function home(req, res, next){
   }
   Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
     if(err){
-      res.json({
-        err: true,
-        message: 'No se puedieron extraer los proyectos',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       Member.find({"user_id": req.user._id}, function(err, members){
 
@@ -137,7 +121,7 @@ function home(req, res, next){
           members.forEach(function(item, index){
             Project.findOne({_id: item.project_id}, function(err, project){
               if(err){
-
+                res.render("error", {title: "Error"});
               }else{
                 member_projects.push(project);
               }
@@ -185,11 +169,7 @@ function update(req, res, next){
   Project.findOneAndUpdate({ _id : req.params.id}, {$set: proyect}, {new: true},
     (err, proyect)=>{
     if (err) {
-      res.json({
-        err: true,
-        message: 'No se pudo editar el proyecto',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       res.json({
         err: false,
@@ -206,11 +186,7 @@ function findByOne(req, res, next){
     _id:id
   }, (err, obj)=>{
     if(err){
-      res.json({
-        err: true,
-        message : 'Proyecto',
-        obj: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       res.redirect('dashboard');
     }
@@ -222,11 +198,7 @@ function remove(req, res, next){
   if(id){
     Project.findByIdAndRemove(id, function(err, obj){
       if (err) {
-        res.json({
-          err: true,
-          message: 'No se pudo eliminar proyecto',
-          objs: {}
-        });
+        res.render("error", {title: "Error"});
       }else{
         var today = new Date();
         var dd = today.getDate();
@@ -246,11 +218,7 @@ function remove(req, res, next){
 
         archive.save((err, proyect)=>{
           if (err) {
-            res.json({
-              err: true,
-              message: 'No se pudo guardar el proyecto',
-              objs: err
-            });
+            res.render("error", {title: "Error"});
           }else{
             var user;
             if(req.user.local.name){
@@ -262,11 +230,7 @@ function remove(req, res, next){
             }
             Project.find({"product_owner_id" : req.user._id}, (err, objs)=>{
               if(err){
-                res.json({
-                  err: true,
-                  message: 'No se pudieron extraer los proyectos',
-                  objs: err
-                });
+                res.render("error", {title: "Error"});
               }else{
                 res.json({
                   err: true,

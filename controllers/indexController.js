@@ -26,11 +26,7 @@ function dashboard(request, response, next) {
   }
   Project.find({_id : request.params.id}, (err, obj)=>{
     if(err){
-      response.json({
-        err: true,
-        message: 'No se puede extraer el proyecto',
-        obj: err
-      });
+      res.render("error", {title: "Error"});
     }else{
       History.find({"project_id": obj[0]._id}, function(err, objs){
         Sprint.find({"project_id": obj[0]._id}, function(err, sprints_db){

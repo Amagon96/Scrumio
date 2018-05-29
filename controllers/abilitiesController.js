@@ -18,11 +18,7 @@ function create(request, response, next) {
 
   ability.save((err, obj) => {
     if (err) {
-      response.json({
-        error: true,
-        message: 'Abilidad no guardada',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       var abilities_db;
       Ability.find({"user_id": mongoose.Types.ObjectId(request.user._id)}, function(err, docs){
@@ -53,11 +49,7 @@ function update(request, response, next) {
   doc.type = type;
   doc.save((err, obj) => {
     if (err) {
-      response.json({
-        error: true,
-        message: 'Habilidad no Guardada',
-        objs: err
-      });
+      res.render("error", {title: "Error"});
     } else {
       response.json({
         error: false,
@@ -76,11 +68,7 @@ function remove(request, response, next) {
       _id: id
     }, function(err) {
       if (err) {
-        response.json({
-          error: true,
-          message: 'Habilidad no Eliminado.',
-          objs: {}
-        });
+        res.render("error", {title: "Error"});
       } else {
         response.json({
           error: false,
@@ -90,11 +78,7 @@ function remove(request, response, next) {
       }
     });
   } else {
-    response.json({
-      error: true,
-      message: 'Habilidad no Existe',
-      objs: {}
-    });
+    res.render("error", {title: "Error"});
   }
 }
 
