@@ -923,6 +923,12 @@ select::-ms-expand {
 }
 #modalAddSprint{
   @include form-style();
+  button{
+    @include btn-background-white();
+  }
+  .closeModal{
+    @include cancel-modal-props();
+  }
 }
 
 .side-modal {
