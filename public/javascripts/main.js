@@ -116,7 +116,10 @@ $(document).ready(() =>{
   });
 
   $("#addAbility").click(function(){
-    project_id = $(this).attr("data-id");
+    project_id = "";
+    if($(this).attr("data-id")){
+      project_id = $(this).attr("data-id");
+    }
     var route = '';
     if($(this).attr("data-route")){
       route = '/dashboard_project';

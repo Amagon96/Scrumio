@@ -28,8 +28,10 @@ function create(request, response, next) {
           abilities_db = docs;
           if(request.params.dashboard_project){
             response.redirect('/profile/'+request.params.project_id+'/dashboard_project');
-          }else{
+          }else if(request.params.project_id){
             response.redirect('/profile/'+request.params.project_id);
+          }else{
+            response.redirect('/profile');
           }
         }
       });

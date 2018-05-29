@@ -10,7 +10,7 @@ block content
         img(src="images/empty_state_proyect.png").img-fluid
         p Parece que está algo vacio por aqui, por qué no empezamos creando un <a class="modalProyecto" href="#">proyecto</a>.
       else
-        if projects.length <= 0
+        if projects.length != 0
           h1 Proyectos Propietario
           div.d-flex.flex-wrap
             each val in projects
